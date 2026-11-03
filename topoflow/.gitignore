@@ -1,0 +1,23 @@
+# Python and test caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local environments and packaging output
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated model states and resumable training checkpoints
+outputs/**/models/
+*.ckpt
+*.ckpt.tmp
+

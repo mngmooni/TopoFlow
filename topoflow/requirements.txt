@@ -1,0 +1,10 @@
+# Minimum dependency names inferred from source imports.
+# Versions are intentionally not pinned because the supplied snapshots do not
+# record a verified environment. Install a PyTorch build compatible with your
+# Python version, operating system, and compute platform.
+numpy
+scipy
+matplotlib
+torch
+pytest
+
