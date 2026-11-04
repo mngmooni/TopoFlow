@@ -42,7 +42,7 @@ NFE 20: 43–50% collision, 25–32% deep; NFE 50 the same → not integration e
 - Obstacle-token cross-attention is a standard architecture; the result says the padded MLP
   is a poor structure here, not that this design is novel.
 
-## TDFM controlled comparison (v0.6) — 2026-10-30
+## TDFM controlled comparison (v0.6) 
 B0-attn = P1 backbone with route bits zeroed, trained on the cost-aware target marginal (30k steps, seed 0).
 B2 = MLP selector (8 logits, structural mask) + the existing P1 checkpoint (2 seeds). 300 unseen layouts x 32
 samples, paired noise. Joint TV floor from 32 samples: uniform 0.145 / medium 0.089 / concentrated 0.018.
@@ -61,7 +61,7 @@ Collision % / joint TV:
 Selector TV to target: 0.030 / 0.042 / 0.060 (learned feasibility). Layout-matched B0-attn retrain (medium):
 same numbers within noise. Full detail: HANDOFF.md §4.4 and outputs/day7/results.jsonl.
 
-## Day 8 — selector variants, OT-CFM baseline — 2026-10-30
+## Day 8 — selector variants, OT-CFM baseline 
 Selector TV to p* (learned feasibility): MLP 512x4 0.019 / 0.022 / 0.030; **cost regression
 (predict J per code + feasibility head, p = softmax(-beta J_hat), one model for all beta) 0.016 / 0.013 / 0.013**;
 compositional set encoder 0.029 / 0.023 / 0.024 (uniform / medium / concentrated).
@@ -82,7 +82,7 @@ B2-costreg wins all 9 cells on both collision and joint TV (oracle floor 0.145 /
 OT-CFM = within-layout minibatch OT (16 layouts x 16 samples), same backbone, seed 0: halves low-NFE failure,
 no gain at NFE 20. Invalid mass of B2 on uniform (~1.5%) comes from feasibility-head errors.
 
-## Day 9 (2026-10-30/31): pre-registered checks
+## pre-registered checks
 See PREDICTIONS.md for full tables, hit/miss, and caveats (14/15 hits; miss: D1 selector TV).
 - OT 4x64 per layout: NFE 2/5/20 collision 12.6 / 3.8 / 2.0% (16x16: 15.6 / 4.1 / 2.1).
 - Oracle decomposition (E2, 100 layouts): exact code-blind field NFE 2 Euler 39.6% (B0-attn 42.5%); exact code-conditional 0%
