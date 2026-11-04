@@ -44,8 +44,9 @@ class Block(nn.Module):
 
 
 class ObstacleAttnField(nn.Module):
-    def __init__(self, n_way, max_obs, d=128, depth=4, heads=4, mlp_ratio=2, t_dim=32, chunk=3):
+    def __init__(self, n_way, max_obs, d=128, depth=4, heads=4, mlp_ratio=2, t_dim=32, chunk=3, use_code=True):
         super().__init__()
+        self.use_code = use_code  # False -> B0-attn: route bits are zeroed, identical backbone
         assert n_way % chunk == 0
         self.n_way, self.max_obs, self.chunk = n_way, max_obs, chunk
         self.n_tok = n_way // chunk
@@ -64,6 +65,8 @@ class ObstacleAttnField(nn.Module):
         feat = cond[:, : 5 * M].view(B, M, 5)
         mask = cond[:, 5 * M : 6 * M]
         code = cond[:, 6 * M : 7 * M]
+        if not self.use_code:
+            code = torch.zeros_like(code)
         obs = self.obs_in(torch.cat([feat, code[..., None]], -1))
         obs = torch.cat([self.null_obs.expand(B, 1, -1), obs], 1)
         pad = torch.cat([torch.zeros(B, 1, dtype=torch.bool, device=x.device), mask < 0.5], 1)

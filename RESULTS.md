@@ -41,3 +41,43 @@ NFE 20: 43–50% collision, 25–32% deep; NFE 50 the same → not integration e
 - Under-dispersion of all learned models is unexplained (low-NFE Euler, or undertraining).
 - Obstacle-token cross-attention is a standard architecture; the result says the padded MLP
   is a poor structure here, not that this design is novel.
+
+## TDFM controlled comparison (v0.6) — 2026-10-30
+B0-attn = P1 backbone with route bits zeroed, trained on the cost-aware target marginal (30k steps, seed 0).
+B2 = MLP selector (8 logits, structural mask) + the existing P1 checkpoint (2 seeds). 300 unseen layouts x 32
+samples, paired noise. Joint TV floor from 32 samples: uniform 0.145 / medium 0.089 / concentrated 0.018.
+
+Collision % / joint TV:
+
+| regime | model | NFE 2 | NFE 5 | NFE 20 |
+|---|---|---|---|---|
+| uniform | B0-attn | 80.1 / 0.801 | 17.9 / 0.259 | 4.1 / 0.181 |
+| uniform | B2 | 0.2 / 0.153 | 0.02–0.09 / 0.153 | 0.3–0.4 / 0.154 |
+| medium | B0-attn (seeds 0–1) | 36.2–36.4 / 0.374 | 7.0–7.3 / 0.127–0.129 | 1.8–2.0 / 0.098–0.099 |
+| medium | B2 | 0.05–0.09 / 0.105 | 0 / 0.104 | 0.2–0.3 / 0.106 |
+| concentrated | B0-attn | 9.5 / 0.104 | 2.0 / 0.046 | 0.85 / 0.041 |
+| concentrated | B2 | 0.05–0.12 / 0.066 | 0 / 0.066 | 0.2–0.3 / 0.068 |
+
+Selector TV to target: 0.030 / 0.042 / 0.060 (learned feasibility). Layout-matched B0-attn retrain (medium):
+same numbers within noise. Full detail: HANDOFF.md §4.4 and outputs/day7/results.jsonl.
+
+## Day 8 — selector variants, OT-CFM baseline — 2026-10-30
+Selector TV to p* (learned feasibility): MLP 512x4 0.019 / 0.022 / 0.030; **cost regression
+(predict J per code + feasibility head, p = softmax(-beta J_hat), one model for all beta) 0.016 / 0.013 / 0.013**;
+compositional set encoder 0.029 / 0.023 / 0.024 (uniform / medium / concentrated).
+
+B2-costreg (P1 seeds 0–1) vs B0-attn, collision % / joint TV:
+
+| regime | model | NFE 2 | NFE 5 | NFE 20 |
+|---|---|---|---|---|
+| uniform | B0-attn | 80.1 / 0.801 | 17.9 / 0.259 | 4.1 / 0.181 |
+| uniform | B2-costreg | 0.25–0.27 / 0.156 | 0.02–0.11 / 0.155 | 0.34–0.42 / 0.157 |
+| medium | B0-attn (seeds 0–1) | 36.2–36.4 / 0.374 | 7.0–7.3 / 0.127–0.129 | 1.8–2.0 / 0.098–0.099 |
+| medium | B0-attn + OT-CFM | 15.6 / 0.185 | 4.1 / 0.110 | 2.1 / 0.100 |
+| medium | B2-costreg | 0.01–0.02 / 0.091 | 0 / 0.091 | 0.2–0.3 / 0.093 |
+| concentrated | B0-attn | 9.5 / 0.104 | 2.0 / 0.046 | 0.85 / 0.041 |
+| concentrated | B2-costreg | 0.01 / 0.024 | 0 / 0.024 | 0.24–0.33 / 0.026 |
+
+B2-costreg wins all 9 cells on both collision and joint TV (oracle floor 0.145 / 0.089 / 0.018); deep = 0 everywhere.
+OT-CFM = within-layout minibatch OT (16 layouts x 16 samples), same backbone, seed 0: halves low-NFE failure,
+no gain at NFE 20. Invalid mass of B2 on uniform (~1.5%) comes from feasibility-head errors.

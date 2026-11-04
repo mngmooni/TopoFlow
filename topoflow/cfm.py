@@ -10,6 +10,8 @@ from __future__ import annotations
 
 import math
 
+import numpy as np
+
 import torch
 import torch.nn as nn
 
@@ -56,13 +58,19 @@ def cfm_loss(model, x1, cond=None):
     return ((model(xt, t, cond) - (x1 - x0)) ** 2).mean()
 
 
-def train_cfm(model, data, cond=None, steps=15000, batch=256, lr=1e-3, seed=0, log_every=0):
+def train_cfm(model, data, cond=None, steps=15000, batch=256, lr=1e-3, seed=0, log_every=0, weights=None):
+    """weights: optional per-sample sampling weights (need not be normalized)."""
     g = torch.Generator().manual_seed(seed)
+    if weights is not None:
+        weights = torch.as_tensor(weights, dtype=torch.float64)
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, steps)
     losses = []
     for step in range(steps):
-        idx = torch.randint(0, len(data), (batch,), generator=g)
+        if weights is None:
+            idx = torch.randint(0, len(data), (batch,), generator=g)
+        else:
+            idx = torch.multinomial(weights, batch, replacement=True, generator=g)
         loss = cfm_loss(model, data[idx], None if cond is None else cond[idx])
         opt.zero_grad()
         loss.backward()
@@ -96,3 +104,49 @@ def euler_sample(field, n, dim, K, seed=0, cond=None):
         tt = torch.full((n,), t)
         x = x + field(x, tt, cond) / K
     return x
+
+
+def train_cfm_ot(model, data, cond, layout_ids, weights, steps=30000, groups=16, per_group=16,
+                 lr=1e-3, seed=0, log_every=0):
+    """Conditional minibatch OT-CFM.
+
+    Each step draws `groups` layouts uniformly, then `per_group` samples per layout with the given
+    within-layout weights. Noise and data are paired by an exact assignment (squared Euclidean)
+    **within each layout only**, so the coupling never mixes conditions. Batch = groups * per_group.
+    """
+    from scipy.optimize import linear_sum_assignment
+
+    g = torch.Generator().manual_seed(seed)
+    rng = np.random.default_rng(seed)
+    layout_ids = np.asarray(layout_ids)
+    weights = np.asarray(weights, dtype=np.float64)
+    uniq = np.unique(layout_ids)
+    members = {l: np.where(layout_ids == l)[0] for l in uniq}
+    probs = {l: weights[idx] / weights[idx].sum() for l, idx in members.items()}
+    opt = torch.optim.Adam(model.parameters(), lr=lr)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, steps)
+    losses = []
+    for step in range(steps):
+        idx_all, x0_all = [], []
+        for l in rng.choice(uniq, size=groups, replace=True):
+            idx = rng.choice(members[l], size=per_group, replace=True, p=probs[l])
+            x1 = data[idx]
+            x0 = torch.randn(per_group, data.shape[1], generator=g)
+            cost = torch.cdist(x0, x1).pow(2).numpy()
+            r, c = linear_sum_assignment(cost)
+            idx_all.append(idx[c[np.argsort(r)]])
+            x0_all.append(x0)
+        idx = np.concatenate(idx_all)
+        x0 = torch.cat(x0_all)
+        x1 = data[idx]
+        t = torch.rand(len(x1), generator=g)
+        xt = (1 - t[:, None]) * x0 + t[:, None] * x1
+        loss = ((model(xt, t, cond[idx]) - (x1 - x0)) ** 2).mean()
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+        sched.step()
+        losses.append(loss.item())
+        if log_every and (step + 1) % log_every == 0:
+            print(f"  step {step + 1}: loss {sum(losses[-log_every:]) / log_every:.4f}", flush=True)
+    return losses

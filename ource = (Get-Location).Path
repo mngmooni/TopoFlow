@@ -1,0 +1,29 @@
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day1_demo.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day1_demo.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day3_b0_oracle.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day3_b0_oracle.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day3_sweep.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day3_sweep.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day4_b1_conditional.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day4_b1_conditional.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day4_penetration.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day4_penetration.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day5_control.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day5_control.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day5_e2.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day5_e2.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day6_b1long.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day6_b1long.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day6_fidelity.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day6_fidelity.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'C:\Users\user\TopoFlow-upload\scripts/day6_p1.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day6_p1.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day7_b0attn.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day7_selector.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day8_b2costreg.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.\scripts/day8_selectors.py', LF will be replaced by CRLF the next time Git touches it
+ /dev/null => ".\\scripts/day7_b0attn.py"    |  93 [32m+++++++++++++++++++++++[m
+ /dev/null => ".\\scripts/day7_selector.py"  | 110 [32m++++++++++++++++++++++++++++[m
+ /dev/null => ".\\scripts/day8_b2costreg.py" |  51 [32m+++++++++++++[m
+ /dev/null => ".\\scripts/day8_selectors.py" |  87 [32m++++++++++++++++++++++[m
+ 4 files changed, 341 insertions(+)

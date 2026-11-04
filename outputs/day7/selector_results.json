@@ -1,0 +1,43 @@
+{
+ "betas": {
+  "uniform": {
+   "beta": 0.0,
+   "entropy_calib": 1.0,
+   "entropy_unseen": 1.0
+  },
+  "medium": {
+   "beta": 7.3636356543588795,
+   "entropy_calib": 0.5000000000000001,
+   "entropy_unseen": 0.5043177009715073
+  },
+  "concentrated": {
+   "beta": 37.0789762416923,
+   "entropy_calib": 0.1,
+   "entropy_unseen": 0.09477598057630494
+  }
+ },
+ "selector_uniform": {
+  "train_sec": 31,
+  "tv_learned_feasibility": 0.03044630471925103,
+  "tv_oracle_mask": 0.02193220767185151,
+  "mass_on_not_found": 0.011164550669491291,
+  "tv_uniform_vs_target": 0.0
+ },
+ "selector_medium": {
+  "train_sec": 20,
+  "tv_learned_feasibility": 0.04195077874087255,
+  "tv_oracle_mask": 0.036053377075778846,
+  "mass_on_not_found": 0.0073959119617938995,
+  "tv_uniform_vs_target": 0.5231783616877239
+ },
+ "selector_concentrated": {
+  "train_sec": 14,
+  "tv_learned_feasibility": 0.060454780534704586,
+  "tv_oracle_mask": 0.05476020619497035,
+  "mass_on_not_found": 0.008071592077612877,
+  "tv_uniform_vs_target": 0.7141087985836724
+ },
+ "target_cost_uniform": 2.2620013625261777,
+ "target_cost_medium": 1.9528046966745016,
+ "target_cost_concentrated": 1.9028529148088895
+}
