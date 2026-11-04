@@ -174,6 +174,33 @@ class Env:
             hit |= o.segments_hit(P, Q, margin)
         return hit.reshape(N, T - 1).any(axis=1)
 
+    def penetration(self, paths, n_sub=12, relative=False):
+        """Max depth inside any obstacle along each polyline, (N,T,2) -> (N,).
+
+        Depth is the distance to the obstacle boundary for points inside
+        (<= 0 everywhere means collision-free). Segments are subsampled.
+        relative=True divides by the obstacle's inner radius (r, or min(hw, hh)),
+        so 1.0 means the path reaches the obstacle's center.
+        """
+        paths = np.asarray(paths, dtype=float)
+        s = np.linspace(0.0, 1.0, n_sub)
+        pts = (paths[:, :-1, None, :] * (1 - s)[None, None, :, None]
+               + paths[:, 1:, None, :] * s[None, None, :, None]).reshape(len(paths), -1, 2)
+        depth = np.full(len(paths), -np.inf)
+        for o in self.obstacles:
+            dx = pts[..., 0] - o.cx
+            dy = pts[..., 1] - o.cy
+            if isinstance(o, Circle):
+                d = o.r - np.hypot(dx, dy)
+                size = o.r
+            else:
+                d = np.minimum(o.hw - np.abs(dx), o.hh - np.abs(dy))
+                size = min(o.hw, o.hh)
+            if relative:
+                d = d / size
+            depth = np.maximum(depth, d.max(axis=1))
+        return depth
+
     # ----------------------------------------------------------- features
     def obstacle_array(self, max_obs=None):
         """(max_obs, 5) array [kind, cx, cy, half_w, half_h] plus a validity mask."""
