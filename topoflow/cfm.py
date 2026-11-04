@@ -51,11 +51,14 @@ def n_params(model):
     return sum(p.numel() for p in model.parameters())
 
 
-def cfm_loss(model, x1, cond=None):
+def cfm_loss(model, x1, cond=None, aux=None):
+    """aux(xt, t, v_pred, cond) -> scalar, added to the CFM loss (None = plain CFM, unchanged RNG use)."""
     x0 = torch.randn_like(x1)
     t = torch.rand(len(x1), device=x1.device)
     xt = (1 - t[:, None]) * x0 + t[:, None] * x1
-    return ((model(xt, t, cond) - (x1 - x0)) ** 2).mean()
+    v = model(xt, t, cond)
+    loss = ((v - (x1 - x0)) ** 2).mean()
+    return loss if aux is None else loss + aux(xt, t, v, cond)
 
 
 CKPT_EVERY = 2000
@@ -92,7 +95,7 @@ def _ckpt_save(path, step, model, opt, sched, g, losses, rng=None):
 
 
 def train_cfm(model, data, cond=None, steps=15000, batch=256, lr=1e-3, seed=0, log_every=0, weights=None,
-              ckpt=None):
+              ckpt=None, aux=None):
     """weights: optional per-sample sampling weights (need not be normalized)."""
     g = torch.Generator().manual_seed(seed)
     if weights is not None:
@@ -111,7 +114,7 @@ def train_cfm(model, data, cond=None, steps=15000, batch=256, lr=1e-3, seed=0, l
             idx = torch.randint(0, len(data), (batch,), generator=g)
         else:
             idx = torch.multinomial(weights, batch, replacement=True, generator=g)
-        loss = cfm_loss(model, data[idx], None if cond is None else cond[idx])
+        loss = cfm_loss(model, data[idx], None if cond is None else cond[idx], aux=aux)
         opt.zero_grad()
         loss.backward()
         opt.step()

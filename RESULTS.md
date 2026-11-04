@@ -82,7 +82,7 @@ B2-costreg wins all 9 cells on both collision and joint TV (oracle floor 0.145 /
 OT-CFM = within-layout minibatch OT (16 layouts x 16 samples), same backbone, seed 0: halves low-NFE failure,
 no gain at NFE 20. Invalid mass of B2 on uniform (~1.5%) comes from feasibility-head errors.
 
-## pre-registered checks
+## Day 9 : pre-registered checks
 See PREDICTIONS.md for full tables, hit/miss, and caveats (14/15 hits; miss: D1 selector TV).
 - OT 4x64 per layout: NFE 2/5/20 collision 12.6 / 3.8 / 2.0% (16x16: 15.6 / 4.1 / 2.1).
 - Oracle decomposition (E2, 100 layouts): exact code-blind field NFE 2 Euler 39.6% (B0-attn 42.5%); exact code-conditional 0%
@@ -90,3 +90,13 @@ See PREDICTIONS.md for full tables, hit/miss, and caveats (14/15 hits; miss: D1 
 - D1 (3–5 obstacles): B0-attn 55.1 / 20.7 / 5.6%, monotone in obstacle count; B2 0.06 / 0.04 / 0.39%; P1+oracle 0 / 0 / 0.33%.
 - not_found codes are ~all realizable at zero clearance, 6.7% at the planner's 0.03 clearance → clearance mismatch between
   target (0.03) and validity check (0) inflates B2's invalid rate in D1.
+
+## Day 11 : TDFM v2 chart flow, seeds, proof, clipping, D3
+See PREDICTIONS.md (Day 11 sections) and CHART_PROOF.md.
+- D2 flow-time: 93% of P1 failures enter violation at t ≥ 0.7; exact field after 0.75 → 0%. High NFE = diversity.
+- Full-path projection: P1 NFE 20 U+M 4.18 → 0.21%, diversity kept. Clearance loss w=100: broken (U 37%).
+- v2 (D2, 3 seeds): U = M = T = 0 at NFE 2/5/20; TV 0.160 (projection 0.160); diversity 0.034/0.052/0.062
+  vs P1 0.013/0.031/0.052 (data 0.064); params 838,918 vs 836,614; same generation time.
+- Independent chart check: 0 violations over ~800k decoded paths (D1, D2, D3).
+- Clipping: 7.3% of training paths at n = 60, ~1/n, 99.98% circle flanks; no measurable pull of v2 samples.
+- D3: v2 0/0/0, diversity 0.061 vs P1 0.051; B2 0.11/0.06/1.76% vs B0-attn 65.1/27.6/10.2% collision.

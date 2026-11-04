@@ -2,6 +2,7 @@
 
   TOPO_MAX_OBS=5 python scripts/d1_build.py
   TOPO_MAX_OBS=5 OUT=outputs/d2 MARGIN=0.01 python scripts/d1_build.py   # D2 narrow passages
+  TOPO_MAX_OBS=5 OUT=outputs/d3 MARGIN=0.01 SG_Y=0.4 python scripts/d1_build.py   # D3 start/goal variation
 """
 import json
 import os
@@ -19,6 +20,7 @@ from topoflow.tdfm import calibrate_beta, layout_costs, mean_norm_entropy  # noq
 assert MAX_OBS == 5, "run with TOPO_MAX_OBS=5"
 OUT = os.environ.get("OUT", "outputs/d1")
 MARGIN = float(os.environ.get("MARGIN", "0.03"))  # D2: 0.01
+SG_Y = float(os.environ.get("SG_Y", "0"))  # D3: start/goal y ~ U[-SG_Y, SG_Y] per layout (x fixed at -0.9 / 0.9)
 os.makedirs(OUT, exist_ok=True)
 N_TRAIN, N_UNSEEN, N_CALIB, PER_CODE = 2000, 300, 300, 4
 REGIMES = {"uniform": 1.0, "medium": 0.5, "concentrated": 0.1}
@@ -26,8 +28,11 @@ REGIMES = {"uniform": 1.0, "medium": 0.5, "concentrated": 0.1}
 
 def sampler(rng):
     n = int(rng.choice([3, 4, 5], p=[0.2, 0.4, 0.4]))
+    sg = {}
+    if SG_Y > 0:
+        sg = dict(start=(-0.9, float(rng.uniform(-SG_Y, SG_Y))), goal=(0.9, float(rng.uniform(-SG_Y, SG_Y))))
     return random_layout(rng, n, x_band=(-0.66, 0.66), r_range=(0.08, 0.15), box_prob=0.3,
-                         min_gap=0.05, stratified=True, max_tries=2000)
+                         min_gap=0.05, stratified=True, max_tries=2000, **sg)
 
 
 t0 = time.time()
@@ -57,6 +62,7 @@ info = {r: dict(beta=b, entropy_calib=mean_norm_entropy(C["calib"], b),
                 entropy_unseen=mean_norm_entropy(C["unseen"], b)) for r, b in betas.items()}
 info["_stats"] = stats
 info["_margin"] = MARGIN
+info["_sg_y"] = SG_Y
 info["_n_train_samples"] = int(sum(len(P) for l in sets["train"] for P in l["found"].values()))
 print(json.dumps(info, indent=1), flush=True)
 with open(f"{OUT}/betas.json", "w") as f:

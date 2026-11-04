@@ -120,11 +120,12 @@ class Selector(nn.Module):
         return logits.masked_fill(~allow_mask, -1e9)
 
 
-def selector_inputs(layouts):
+def selector_inputs(layouts, sg=False):
     X, S = [], []
     for lay in layouts:
         f, m = env_features(lay["env"])
-        X.append(np.concatenate([f, m]))
+        extra = [lay["env"].start[1:2], lay["env"].goal[1:2]] if sg else []
+        X.append(np.concatenate([f, m, *extra]))
         S.append(structural_mask(lay["env"].m))
     return torch.tensor(np.array(X), dtype=torch.float32), torch.tensor(np.array(S))
 
@@ -163,14 +164,15 @@ def sample_codes(prob_rows, n, seed):
 
 
 @torch.no_grad()
-def generate(model, layouts, code_idx, K, x0, T=32, batch=4096):
+def generate(model, layouts, code_idx, K, x0, T=32, batch=4096, sg=False):
     """code_idx: (L, n) indices (ignored by code-blind models). x0: (L*n, 60) paired noise."""
     L, n = code_idx.shape
     conds = []
     for i, lay in enumerate(layouts):
         f, m = env_features(lay["env"])
         for j in range(n):
-            conds.append(np.concatenate([f, m, pad_code(index_code(int(code_idx[i, j]), MAX_OBS))]))
+            extra = [lay["env"].start[1:2], lay["env"].goal[1:2]] if sg else []
+            conds.append(np.concatenate([f, m, pad_code(index_code(int(code_idx[i, j]), MAX_OBS)), *extra]))
     cond = torch.tensor(np.array(conds), dtype=torch.float32)
     outs = []
     for s in range(0, len(cond), batch):

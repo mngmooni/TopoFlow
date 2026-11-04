@@ -24,6 +24,7 @@ from topoflow.taxonomy import tally  # noqa: E402
 from topoflow.tdfm import boltzmann, generate, index_code, sample_codes, selector_inputs, target_vector  # noqa: E402
 
 torch.set_num_threads(int(os.environ.get("THREADS", "1")))
+SG = os.environ.get("SG", "0") == "1"  # D3: models and selector take (start_y, goal_y)
 DATA = os.environ.get("DATA", "outputs/d1")
 KS = [int(k) for k in os.environ.get("KS", "2,5,20").split(",")]
 REGIMES = os.environ.get("REGIMES", "medium,uniform").split(",")
@@ -39,10 +40,10 @@ with open(f"{DATA}/costs.pkl", "rb") as f:
     C = pickle.load(f)
 OUTF = f"{DATA}/taxonomy.jsonl"
 
-sel = CostRegSelector(512, 4)
+sel = CostRegSelector(512, 4, extra=2 if SG else 0)
 sel.load_state_dict(torch.load(f"{DATA}/models/sel_costreg.pt"))
 sel.eval()
-Xun, Sun = selector_inputs(unseen)
+Xun, Sun = selector_inputs(unseen, sg=SG)
 with torch.no_grad():
     jh, fl = (t.numpy() for t in sel(Xun))
 feas = (fl > 0) & Sun.numpy()
@@ -60,7 +61,7 @@ def log(rec):
 def run(model, label, regime, codes):
     targets = [boltzmann(c, betas[regime]) for c in C["unseen"]]
     for K in KS:
-        G = generate(model, unseen, codes if codes is not None else np.zeros((len(unseen), N_PER), int), K, x0)
+        G = generate(model, unseen, codes if codes is not None else np.zeros((len(unseen), N_PER), int), K, x0, sg=SG)
         rec = dict(model=label, regime=regime, K=K, cstar=CSTAR)
         for mg in MARGINS:
             rec[f"c{mg}"] = tally(unseen, G, codes, mg, targets, index_code)
@@ -81,7 +82,7 @@ for path in sorted(glob.glob(f"{DATA}/models/*.pt")):
     if stem.startswith("sel_") or (ONLY and stem not in ONLY) or not (stem.startswith("P1") or stem.startswith("B0attn")):
         continue
     is_p1 = stem.startswith("P1")
-    model = ObstacleAttnField(30, MAX_OBS, d=128, depth=4, chunk=3, use_code=is_p1)
+    model = ObstacleAttnField(30, MAX_OBS, d=128, depth=4, chunk=3, use_code=is_p1, sg_input=SG)
     model.load_state_dict(torch.load(path))
     model.eval()
     if is_p1:

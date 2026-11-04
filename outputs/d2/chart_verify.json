@@ -1,0 +1,26 @@
+{
+ "train": {
+  "layouts": 300,
+  "charts": 6219,
+  "feasible": 6219,
+  "feasible_frac": 1.0,
+  "decoded_paths": 149256,
+  "clearance_violations": 0,
+  "side_violations": 0,
+  "min_clearance": 0.010001198189968377,
+  "c_star": 0.01,
+  "dense_points_per_segment": 64
+ },
+ "unseen": {
+  "layouts": 300,
+  "charts": 6240,
+  "feasible": 6240,
+  "feasible_frac": 1.0,
+  "decoded_paths": 149760,
+  "clearance_violations": 0,
+  "side_violations": 0,
+  "min_clearance": 0.010001981437990415,
+  "c_star": 0.01,
+  "dense_points_per_segment": 64
+ }
+}

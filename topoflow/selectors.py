@@ -42,9 +42,9 @@ class LogitSelector(nn.Module):
 
 
 class CostRegSelector(nn.Module):
-    def __init__(self, hidden=512, depth=4):
+    def __init__(self, hidden=512, depth=4, extra=0):
         super().__init__()
-        self.net = mlp(6 * MAX_OBS, 2 * N_CODES, hidden, depth)
+        self.net = mlp(6 * MAX_OBS + extra, 2 * N_CODES, hidden, depth)  # extra = 2 for (start_y, goal_y) in D3
 
     def forward(self, x):
         out = self.net(x)

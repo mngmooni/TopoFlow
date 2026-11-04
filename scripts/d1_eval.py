@@ -20,6 +20,7 @@ from topoflow.tdfm import (boltzmann, evaluate_samples, found_mask, generate, sa
                            selector_inputs, target_vector)
 
 torch.set_num_threads(int(os.environ.get("THREADS", "1")))
+SG = os.environ.get("SG", "0") == "1"  # D3: models and selector take (start_y, goal_y)
 DATA = os.environ.get("DATA", "outputs/d1")
 KS = [2, 5, 20]
 N_PER = 32
@@ -38,11 +39,11 @@ def log(rec):
 
 
 # ---------------------------------------------------------------- selector
-Xtr, Str = selector_inputs(train_layouts)
-Xun, Sun = selector_inputs(unseen)
+Xtr, Str = selector_inputs(train_layouts, sg=SG)
+Xun, Sun = selector_inputs(unseen, sg=SG)
 Fun = found_mask(unseen).numpy()
 sel_path = f"{DATA}/models/sel_costreg.pt"
-sel = CostRegSelector(512, 4)
+sel = CostRegSelector(512, 4, extra=2 if SG else 0)
 if os.path.exists(sel_path):
     sel.load_state_dict(torch.load(sel_path))
 else:
@@ -72,7 +73,7 @@ dummy = np.zeros((len(unseen), N_PER), dtype=int)
 def run(model, label, regime, codes, extra=None):
     targets = [boltzmann(c, betas[regime]) for c in C["unseen"]]
     for K in KS:
-        G = generate(model, unseen, codes, K, x0)
+        G = generate(model, unseen, codes, K, x0, sg=SG)
         rec = dict(model=label, regime=regime, K=K, **(extra or {}))
         rec["all"] = evaluate_samples(unseen, G, targets, C["unseen"], code_idx=None if codes is dummy else codes)
         for m in sorted(set(ms)):
@@ -89,7 +90,7 @@ for path in sorted(glob.glob(f"{DATA}/models/*.pt")):
     if stem.startswith("sel_") or (only and stem not in only.split(",")):
         continue
     is_p1 = stem.startswith("P1")
-    model = ObstacleAttnField(30, MAX_OBS, d=128, depth=4, chunk=3, use_code=is_p1)
+    model = ObstacleAttnField(30, MAX_OBS, d=128, depth=4, chunk=3, use_code=is_p1, sg_input=SG)
     model.load_state_dict(torch.load(path))
     model.eval()
     if is_p1:

@@ -45,14 +45,18 @@ class Block(nn.Module):
 
 class ObstacleAttnField(nn.Module):
     def __init__(self, n_way, max_obs, d=128, depth=4, heads=4, mlp_ratio=2, t_dim=32, chunk=3, use_code=True,
-                 label_global=False, n_labels=32):
+                 label_global=False, n_labels=32, sg_input=False):
         super().__init__()
-        self.use_code = use_code
+        self.use_code = use_code  # False -> B0-attn: route bits are zeroed, identical backbone
         # label_global: the code slots hold a binary label id; it enters as a global embedding (added to every
         # waypoint token and the null obstacle token) instead of per-obstacle bits
         self.label_global = label_global
         if label_global:
-            self.lab_emb = nn.Embedding(n_labels, d)  # False -> B0-attn: route bits are zeroed, identical backbone
+            self.lab_emb = nn.Embedding(n_labels, d)
+        # sg_input: cond carries (start_y, goal_y) after the code slots; added as a global embedding (D3)
+        self.sg_input = sg_input
+        if sg_input:
+            self.sg_proj = nn.Sequential(nn.Linear(2, d), nn.SiLU(), nn.Linear(d, d))
         assert n_way % chunk == 0
         self.n_way, self.max_obs, self.chunk = n_way, max_obs, chunk
         self.n_tok = n_way // chunk
@@ -85,6 +89,8 @@ class ObstacleAttnField(nn.Module):
         h = self.way_in(x.view(B, self.n_tok, 2 * self.chunk)) + self.idx_emb[None] + self.t_proj(self.temb(t))[:, None]
         if lab is not None:
             h = h + lab
+        if self.sg_input:
+            h = h + self.sg_proj(cond[:, 7 * M: 7 * M + 2])[:, None]
         for blk in self.blocks:
             h = blk(h, obs, pad)
         return self.out(h).reshape(B, -1)
