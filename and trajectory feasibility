@@ -1,0 +1,51 @@
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'RESULTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day1/summary.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day3/results.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day3/sweep.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day4/results.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day5/control_results.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day5/results.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day6/fidelity.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day6/results.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day7/betas.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day7/results.jsonl', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day7/selector_results.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'outputs/day8/selector_variants.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pytest.ini', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'requirements.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day1_demo.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day3_b0_oracle.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day3_sweep.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day4_b1_conditional.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day4_penetration.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day5_control.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day5_e2.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day6_b1long.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day6_fidelity.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day6_p1.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day7_b0attn.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day7_selector.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day8_b2costreg.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/day8_selectors.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/test_day1.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/test_p1.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/cfm.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/e2.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/e2eval.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/env.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/p1.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/routes.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/selectors.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/tdfm.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/topology.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'topoflow/viz.py', LF will be replaced by CRLF the next time Git touches it
+ RESULTS.md                 | 13 [32m+++++++++[m[31m--[m
+ outputs/day7/results.jsonl |  3 [32m+++[m
+ scripts/day7_b0attn.py     | 16 [32m+++++++++[m[31m----[m
+ topoflow/cfm.py            | 58 [32m+++++++++++++++++++++++++++++++++++++++++[m[31m-----[m
+ topoflow/e2.py             |  7 [32m+++[m[31m---[m
+ topoflow/env.py            |  8 [32m++++[m[31m---[m
+ topoflow/p1.py             | 20 [32m+++++++++++++[m[31m---[m
+ 7 files changed, 103 insertions(+), 22 deletions(-)

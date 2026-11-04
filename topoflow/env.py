@@ -233,7 +233,7 @@ def e0_env():
 
 def random_layout(rng, n_obs, start=(-0.9, 0.0), goal=(0.9, 0.0), x_band=(-0.6, 0.6),
                   y_band=(-0.35, 0.35), r_range=(0.12, 0.22), box_prob=0.0, min_gap=0.06,
-                  max_tries=200):
+                  max_tries=200, stratified=False):
     """Random layout of n_obs obstacles with non-overlapping x-projections.
 
     Non-overlapping x-projections guarantee that downward cuts never hit another
@@ -241,9 +241,11 @@ def random_layout(rng, n_obs, start=(-0.9, 0.0), goal=(0.9, 0.0), x_band=(-0.6, 
     """
     for _ in range(max_tries):
         obs = []
-        for _ in range(n_obs):
+        slot = (x_band[1] - x_band[0]) / n_obs
+        for k in range(n_obs):
             size = rng.uniform(*r_range)
-            cx = rng.uniform(*x_band)
+            # stratified: one obstacle per equal-width x slot (needed for 4-5 obstacles to fit)
+            cx = x_band[0] + slot * (k + rng.uniform()) if stratified else rng.uniform(*x_band)
             cy = rng.uniform(*y_band)
             if rng.random() < box_prob:
                 obs.append(Box(cx, cy, size * rng.uniform(0.7, 1.0), size * rng.uniform(0.7, 1.3)))

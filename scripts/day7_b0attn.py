@@ -22,7 +22,7 @@ from topoflow.e2 import stack_samples  # noqa: E402
 from topoflow.p1 import ObstacleAttnField  # noqa: E402
 from topoflow.tdfm import boltzmann, evaluate_samples, generate  # noqa: E402
 
-torch.set_num_threads(max(1, os.cpu_count() or 1))
+torch.set_num_threads(int(os.environ.get("THREADS", max(1, os.cpu_count() or 1))))
 OUT = "outputs/day7"
 REGIME = os.environ.get("REGIME", "medium")
 ARCH = os.environ.get("ARCH", "attn")
@@ -32,6 +32,8 @@ SEED = int(os.environ.get("SEED", "0"))
 #                   layout distribution P1 saw under plain per-sample sampling.
 LAYOUT_W = os.environ.get("LAYOUT_W", "uniform")
 OT = os.environ.get("OT", "0") == "1"  # within-layout minibatch OT coupling (train_cfm_ot)
+OT_GROUPS = int(os.environ.get("OT_GROUPS", "16"))
+OT_PER = int(os.environ.get("OT_PER", "16"))
 STEPS = 30000
 KS = [2, 5, 20]
 N_PER = 32
@@ -64,14 +66,18 @@ else:
     cond = torch.tensor(np.concatenate([tr["feat"], tr["mask"]], 1))
     model = VelocityMLP(60, cond_dim=18, hidden=512, depth=4)
 torch.manual_seed(SEED)
+suffix = ("_lwcodes" if LAYOUT_W == "codes" else "") + (("_ot" if OT_PER == 16 else f"_ot{OT_GROUPS}x{OT_PER}") if OT else "")
+name = f"B0{ARCH}_{REGIME}_s{SEED}" + suffix
+CKPT = f"{OUT}/models/{name}.ckpt"
 t0 = time.time()
 if OT:
-    losses = train_cfm_ot(model, x, cond, tr["layout"], w, steps=STEPS, seed=SEED, log_every=10000)
+    losses = train_cfm_ot(model, x, cond, tr["layout"], w, steps=STEPS, groups=OT_GROUPS,
+                          per_group=OT_PER, seed=SEED, log_every=10000, ckpt=CKPT)
 else:
-    losses = train_cfm(model, x, cond=cond, steps=STEPS, seed=SEED, weights=w, log_every=10000)
-suffix = ("_lwcodes" if LAYOUT_W == "codes" else "") + ("_ot" if OT else "")
-name = f"B0{ARCH}_{REGIME}_s{SEED}" + suffix
+    losses = train_cfm(model, x, cond=cond, steps=STEPS, seed=SEED, weights=w, log_every=10000, ckpt=CKPT)
 torch.save(model.state_dict(), f"{OUT}/models/{name}.pt")
+if os.path.exists(CKPT):
+    os.remove(CKPT)
 model.eval()
 info = dict(model=f"B0-{ARCH}" + suffix.replace("_", "-"), regime=REGIME, seed=SEED, params=n_params(model),
             train_sec=round(time.time() - t0), final_loss=float(np.mean(losses[-500:])))

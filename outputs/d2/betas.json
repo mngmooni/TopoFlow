@@ -1,0 +1,63 @@
+{
+ "uniform": {
+  "beta": 0.0,
+  "entropy_calib": 1.0,
+  "entropy_unseen": 1.0
+ },
+ "medium": {
+  "beta": 7.751652364762731,
+  "entropy_calib": 0.5000000000000002,
+  "entropy_unseen": 0.4951431992055808
+ },
+ "concentrated": {
+  "beta": 32.304114331263065,
+  "entropy_calib": 0.10000000000000003,
+  "entropy_unseen": 0.0969589456386946
+ },
+ "_stats": {
+  "train": {
+   "3": {
+    "n": 383,
+    "found_frac": 1.0
+   },
+   "4": {
+    "n": 808,
+    "found_frac": 0.9996132425742574
+   },
+   "5": {
+    "n": 809,
+    "found_frac": 0.9975278121137207
+   }
+  },
+  "unseen": {
+   "3": {
+    "n": 58,
+    "found_frac": 1.0
+   },
+   "4": {
+    "n": 123,
+    "found_frac": 1.0
+   },
+   "5": {
+    "n": 119,
+    "found_frac": 1.0
+   }
+  },
+  "calib": {
+   "3": {
+    "n": 66,
+    "found_frac": 1.0
+   },
+   "4": {
+    "n": 123,
+    "found_frac": 1.0
+   },
+   "5": {
+    "n": 111,
+    "found_frac": 0.9971846846846847
+   }
+  }
+ },
+ "_margin": 0.01,
+ "_n_train_samples": 167118
+}

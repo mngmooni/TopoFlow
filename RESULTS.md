@@ -1,4 +1,4 @@
-# Baseline phase results (E0, E2) — 2026-10-29
+# Baseline phase results (E0, E2) 
 
 All numbers: collision % / deep-penetration % (> 1/3 of obstacle size) / adherence %.
 E2 eval is paired: every model sees identical (layout, code, noise) triples.
@@ -9,7 +9,7 @@ Held-out combinations: ABA, BAB on 3-obstacle layouts (never trained on, except 
   collides 100% at NFE 1 and 41–43% at NFE 2; the exact class-conditional oracle collides 0%.
 - Learned B1 reproduces this (NFE 2: 0–0.05% vs B0 44%).
 - High-NFE 2–3% collisions are shallow grazes (data clearance 0.01), present with or without
-  conditioning. Deep penetrations (only B0, ~0.5%) are the topological failures.
+  conditioning. Deep penetrations (> 1/3 obstacle size) appear only for B0 (~0.5%); this is a geometric severity measure, not a topological label (the word of a colliding path is undefined).
 - Earlier "jitter" and "minority collapse" were undertraining (gone at 512 units / 30k steps).
 
 ## E2 (3000 random layouts, 1–3 obstacles), NFE 5
@@ -81,3 +81,12 @@ B2-costreg (P1 seeds 0–1) vs B0-attn, collision % / joint TV:
 B2-costreg wins all 9 cells on both collision and joint TV (oracle floor 0.145 / 0.089 / 0.018); deep = 0 everywhere.
 OT-CFM = within-layout minibatch OT (16 layouts x 16 samples), same backbone, seed 0: halves low-NFE failure,
 no gain at NFE 20. Invalid mass of B2 on uniform (~1.5%) comes from feasibility-head errors.
+
+## Day 9 (2026-10-30/31): pre-registered checks
+See PREDICTIONS.md for full tables, hit/miss, and caveats (14/15 hits; miss: D1 selector TV).
+- OT 4x64 per layout: NFE 2/5/20 collision 12.6 / 3.8 / 2.0% (16x16: 15.6 / 4.1 / 2.1).
+- Oracle decomposition (E2, 100 layouts): exact code-blind field NFE 2 Euler 39.6% (B0-attn 42.5%); exact code-conditional 0%
+  at all NFE; high-NFE plateaus (B0 1.5%, OT 2.6%, P1 ~1%) are learned-field error.
+- D1 (3–5 obstacles): B0-attn 55.1 / 20.7 / 5.6%, monotone in obstacle count; B2 0.06 / 0.04 / 0.39%; P1+oracle 0 / 0 / 0.33%.
+- not_found codes are ~all realizable at zero clearance, 6.7% at the planner's 0.03 clearance → clearance mismatch between
+  target (0.03) and validity check (0) inflates B2's invalid rate in D1.

@@ -44,9 +44,15 @@ class Block(nn.Module):
 
 
 class ObstacleAttnField(nn.Module):
-    def __init__(self, n_way, max_obs, d=128, depth=4, heads=4, mlp_ratio=2, t_dim=32, chunk=3, use_code=True):
+    def __init__(self, n_way, max_obs, d=128, depth=4, heads=4, mlp_ratio=2, t_dim=32, chunk=3, use_code=True,
+                 label_global=False, n_labels=32):
         super().__init__()
-        self.use_code = use_code  # False -> B0-attn: route bits are zeroed, identical backbone
+        self.use_code = use_code
+        # label_global: the code slots hold a binary label id; it enters as a global embedding (added to every
+        # waypoint token and the null obstacle token) instead of per-obstacle bits
+        self.label_global = label_global
+        if label_global:
+            self.lab_emb = nn.Embedding(n_labels, d)  # False -> B0-attn: route bits are zeroed, identical backbone
         assert n_way % chunk == 0
         self.n_way, self.max_obs, self.chunk = n_way, max_obs, chunk
         self.n_tok = n_way // chunk
@@ -67,10 +73,18 @@ class ObstacleAttnField(nn.Module):
         code = cond[:, 6 * M : 7 * M]
         if not self.use_code:
             code = torch.zeros_like(code)
+        lab = None
+        if self.label_global:
+            ids = (code.round().long() * (2 ** torch.arange(M, device=x.device))).sum(1)
+            lab = self.lab_emb(ids)[:, None]
+            code = torch.zeros_like(code)
         obs = self.obs_in(torch.cat([feat, code[..., None]], -1))
-        obs = torch.cat([self.null_obs.expand(B, 1, -1), obs], 1)
+        null = self.null_obs.expand(B, 1, -1) if lab is None else self.null_obs + lab
+        obs = torch.cat([null, obs], 1)
         pad = torch.cat([torch.zeros(B, 1, dtype=torch.bool, device=x.device), mask < 0.5], 1)
         h = self.way_in(x.view(B, self.n_tok, 2 * self.chunk)) + self.idx_emb[None] + self.t_proj(self.temb(t))[:, None]
+        if lab is not None:
+            h = h + lab
         for blk in self.blocks:
             h = blk(h, obs, pad)
         return self.out(h).reshape(B, -1)

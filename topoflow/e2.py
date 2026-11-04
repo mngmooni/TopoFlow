@@ -15,6 +15,7 @@ Splits
 from __future__ import annotations
 
 import itertools
+import os
 
 import numpy as np
 
@@ -22,7 +23,7 @@ from .env import random_layout
 from .routes import generate_routes
 from .topology import crossing_word
 
-MAX_OBS = 3
+MAX_OBS = int(os.environ.get("TOPO_MAX_OBS", "3"))  # D1+ experiments use 5
 HELD_OUT = {(0, 1, 0), (1, 0, 1)}  # alternating patterns never trained on 3-obstacle layouts
 
 
@@ -56,11 +57,11 @@ def word_to_code(word, m):
     return tuple(c)
 
 
-def build_layouts(rng, n_layouts, per_code, T=32, margin=0.03, max_tries_per_path=40):
+def build_layouts(rng, n_layouts, per_code, T=32, margin=0.03, max_tries_per_path=40, sampler=None):
     """Returns list of dicts: env, found codes, paths per code."""
     out = []
     for _ in range(n_layouts):
-        env = sample_layout(rng)
+        env = (sampler or sample_layout)(rng)
         found = {}
         for code in itertools.product([0, 1], repeat=env.m):
             P, _, _ = generate_routes(env, code, per_code, rng, T=T, margin=margin,
