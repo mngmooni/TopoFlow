@@ -1,0 +1,33 @@
+{
+ "fam": "H3",
+ "layouts": 300,
+ "codes": 43904,
+ "exact": 22197,
+ "exact_frac": 0.5055803571428571,
+ "ok60": 20362,
+ "cover60": 0.9173311708789476,
+ "ok_not_exact": 0,
+ "miss": 1835,
+ "miss_fixed": 1835,
+ "miss_pts_max": 121,
+ "miss_unfixed_gaps": [],
+ "miss_gap_median": 0.02068141304756007,
+ "cover_refined": 1.0,
+ "band_median": 0.939712099218982,
+ "layouts_with_x_overlap": 0,
+ "cover60_by_m": {
+  "6": [
+   3915,
+   4124
+  ],
+  "7": [
+   6382,
+   6805
+  ],
+  "8": [
+   10065,
+   11268
+  ]
+ },
+ "sec": 41
+}

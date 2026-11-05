@@ -49,25 +49,41 @@ def _wall(o, xa, xb, c, top):
     return o.cy + h if top else o.cy - h
 
 
-def bounds(env, code, c, n):
-    """(lo, hi) arrays of length n for the interior grid points, plus feasibility flag (all lo < hi)."""
-    xs = np.concatenate([[env.start[0]], grid(env, n, c), [env.goal[0]]])
-    L = np.full(n + 1, Y_MIN)
-    U = np.full(n + 1, Y_MAX)
+def walls(o, xa, xb, c, top):
+    """Vectorized _wall over interval arrays xa, xb: wall height, NaN where the inflated obstacle misses."""
+    xa, xb = np.asarray(xa, float), np.asarray(xb, float)
+    R = (o.r if o.kind == "circle" else o.hw) + c
+    miss = (xb <= o.cx - R) | (xa >= o.cx + R)
+    if o.kind == "circle":
+        xc = np.clip(o.cx, xa, xb)
+        h = np.sqrt(np.maximum(R * R - (xc - o.cx) ** 2, 0.0))
+    else:
+        h = np.full(xa.shape, o.hh + c)
+    w = o.cy + h if top else o.cy - h
+    return np.where(miss, np.nan, w)
+
+
+def bounds_xs(env, code, c, xs_int):
+    """Chart on an arbitrary strictly increasing interior grid xs_int. Returns (lo, hi, ok, L, U)."""
+    xs = np.concatenate([[env.start[0]], xs_int, [env.goal[0]]])
+    L = np.full(len(xs) - 1, Y_MIN)
+    U = np.full(len(xs) - 1, Y_MAX)
     for o, b in zip(env.obstacles, code):
-        for k in range(n + 1):
-            if b == 0:  # route passes above: lower wall = top of inflated obstacle
-                w = _wall(o, xs[k], xs[k + 1], c, top=True)
-                if w is not None:
-                    L[k] = max(L[k], w)
-            else:
-                w = _wall(o, xs[k], xs[k + 1], c, top=False)
-                if w is not None:
-                    U[k] = min(U[k], w)
+        w = walls(o, xs[:-1], xs[1:], c, top=(b == 0))
+        if b == 0:
+            L = np.where(np.isnan(w), L, np.maximum(L, w))
+        else:
+            U = np.where(np.isnan(w), U, np.minimum(U, w))
     lo = np.maximum(L[:-1], L[1:])
     hi = np.minimum(U[:-1], U[1:])
     # start/goal must sit inside the first/last segment band
     ok = bool(np.all(hi > lo) and L[0] <= env.start[1] <= U[0] and L[-1] <= env.goal[1] <= U[-1])
+    return lo, hi, ok, L, U
+
+
+def bounds(env, code, c, n):
+    """(lo, hi) arrays of length n for the interior grid points, plus feasibility flag (all lo < hi)."""
+    lo, hi, ok, _, _ = bounds_xs(env, code, c, grid(env, n, c))
     return lo, hi, ok
 
 

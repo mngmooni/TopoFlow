@@ -1,0 +1,97 @@
+{
+ "c": 0.01,
+ "summary": {
+  "unseen": {
+   "charts_all": 6240,
+   "found": 6240,
+   "found_ok60": 1.0,
+   "found_ok120": 1.0,
+   "found_ok240": 1.0,
+   "found_okG2": 1.0,
+   "found_exact": 1.0,
+   "n_bad60": 0,
+   "bad_recovered": {
+    "ok120": 0,
+    "ok240": 0,
+    "okG2": 0,
+    "exact": 0
+   },
+   "bad_overlap_switch": 0,
+   "bad_causes": {},
+   "bad_by_m": {
+    "3": [
+     0,
+     464
+    ],
+    "4": [
+     0,
+     1968
+    ],
+    "5": [
+     0,
+     3808
+    ]
+   },
+   "pmass_uncovered_mean": 0.0,
+   "pmass_uncovered_max": 0.0,
+   "pmass_bad_found_mean": 0.0,
+   "layouts_with_uncovered_found": 0,
+   "notfound": 0,
+   "notfound_ok60": 0,
+   "notfound_exact": 0,
+   "exact_all": 6240,
+   "exact_ok60": 6240,
+   "ok60_not_exact": 0,
+   "band_ratio_median": 0.9886556284276844,
+   "band_ratio_p10": 0.9838675836813122,
+   "ref_inside_mean": 0.9254674145299144,
+   "found_overlap_switch": 0.0
+  },
+  "train": {
+   "charts_all": 6224,
+   "found": 6219,
+   "found_ok60": 1.0,
+   "found_ok120": 1.0,
+   "found_ok240": 1.0,
+   "found_okG2": 1.0,
+   "found_exact": 1.0,
+   "n_bad60": 0,
+   "bad_recovered": {
+    "ok120": 0,
+    "ok240": 0,
+    "okG2": 0,
+    "exact": 0
+   },
+   "bad_overlap_switch": 0,
+   "bad_causes": {},
+   "bad_by_m": {
+    "3": [
+     0,
+     416
+    ],
+    "4": [
+     0,
+     2128
+    ],
+    "5": [
+     0,
+     3675
+    ]
+   },
+   "pmass_uncovered_mean": 0.0,
+   "pmass_uncovered_max": 0.0,
+   "pmass_bad_found_mean": 0.0,
+   "layouts_with_uncovered_found": 0,
+   "notfound": 5,
+   "notfound_ok60": 5,
+   "notfound_exact": 5,
+   "exact_all": 6224,
+   "exact_ok60": 6224,
+   "ok60_not_exact": 0,
+   "band_ratio_median": 0.9888119486144317,
+   "band_ratio_p10": 0.9839301987363556,
+   "ref_inside_mean": 0.9279224955780672,
+   "found_overlap_switch": 0.0
+  }
+ }
+}

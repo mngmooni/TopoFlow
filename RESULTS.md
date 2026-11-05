@@ -1,5 +1,4 @@
 # Baseline phase results (E0, E2) 
-
 All numbers: collision % / deep-penetration % (> 1/3 of obstacle size) / adherence %.
 E2 eval is paired: every model sees identical (layout, code, noise) triples.
 Held-out combinations: ABA, BAB on 3-obstacle layouts (never trained on, except *-full models).
@@ -100,3 +99,11 @@ See PREDICTIONS.md (Day 11 sections) and CHART_PROOF.md.
 - Independent chart check: 0 violations over ~800k decoded paths (D1, D2, D3).
 - Clipping: 7.3% of training paths at n = 60, ~1/n, 99.98% circle flanks; no measurable pull of v2 samples.
 - D3: v2 0/0/0, diversity 0.061 vs P1 0.051; B2 0.11/0.06/1.76% vs B0-attn 65.1/27.6/10.2% collision.
+
+## Day 12: chart proof, coverage, hard layouts
+See CHART_PROOF.md (Prop. 1–2, §6 coverage), PREDICTIONS.md (Day 12), RELATED.md.
+- D1 infeasible charts (1.1–1.5% of found codes): all throats between x-overlapping inflated neighbours; local
+  bisection fixes 100% (≤ 74 pts). 58% of D1 not_found codes are chart-certified feasible (planner false negatives).
+- Hard layouts, n = 60 coverage of exact-feasible classes: boxes 100%, stacked 98.1%, tight 94.0%, dense 91.7%;
+  bisection 100% everywhere (≤ 121 pts). 0 chart-feasible-but-empty.
+- OOD (D2-trained): P1 73–82% invalid on H1/H2/H4, v2 0%.
