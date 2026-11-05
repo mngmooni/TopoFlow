@@ -82,7 +82,6 @@ OT-CFM = within-layout minibatch OT (16 layouts x 16 samples), same backbone, se
 no gain at NFE 20. Invalid mass of B2 on uniform (~1.5%) comes from feasibility-head errors.
 
 ## Day 9 : pre-registered checks
-See PREDICTIONS.md for full tables, hit/miss, and caveats (14/15 hits; miss: D1 selector TV).
 - OT 4x64 per layout: NFE 2/5/20 collision 12.6 / 3.8 / 2.0% (16x16: 15.6 / 4.1 / 2.1).
 - Oracle decomposition (E2, 100 layouts): exact code-blind field NFE 2 Euler 39.6% (B0-attn 42.5%); exact code-conditional 0%
   at all NFE; high-NFE plateaus (B0 1.5%, OT 2.6%, P1 ~1%) are learned-field error.
@@ -91,7 +90,6 @@ See PREDICTIONS.md for full tables, hit/miss, and caveats (14/15 hits; miss: D1 
   target (0.03) and validity check (0) inflates B2's invalid rate in D1.
 
 ## Day 11 : TDFM v2 chart flow, seeds, proof, clipping, D3
-See PREDICTIONS.md (Day 11 sections) and CHART_PROOF.md.
 - D2 flow-time: 93% of P1 failures enter violation at t ≥ 0.7; exact field after 0.75 → 0%. High NFE = diversity.
 - Full-path projection: P1 NFE 20 U+M 4.18 → 0.21%, diversity kept. Clearance loss w=100: broken (U 37%).
 - v2 (D2, 3 seeds): U = M = T = 0 at NFE 2/5/20; TV 0.160 (projection 0.160); diversity 0.034/0.052/0.062
