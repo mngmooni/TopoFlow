@@ -1,5 +1,9 @@
 # Topology-Disentangled Flow Matching (TDFM) — 중간 보고서
 
+
+
+---
+
 ## 1. 요약
 
 1. **저 NFE 실패의 원인은 학습이 아니라 확률 경로의 기하다.**
@@ -214,7 +218,6 @@ selector 개선 후(cost regression) 결과다. 칸은 충돌 % / joint TV이고
 
 ## 5. 사전 등록 예측 검증
 
-- 실험 전에 예측과 확률을 적고 sha256으로 잠갔다(`outputs/predictions_locked.md`). 이후 예측 원문은 수정하지 않았다.
 
 | ID | 예측 | 확률 | 결과 |
 |---|---|---|---|
@@ -251,3 +254,5 @@ selector 개선 후(cost regression) 결과다. 칸은 충돌 % / joint TV이고
   - OT 한계의 메커니즘(불연속 OT 맵)은 검증되지 않았다.
   - P1이 병목이라는 증거는 없다. 그래서 새 아키텍처(TDFM v2: residual flow / constrained chart flow) 작업을 시작할 조건은 충족되지 않았다.
 - **주장 범위:** "분해가 새롭다"가 아니다. "언제, 얼마나, 왜(적분 오차 관점에서) 이기는지를 통제된 조건에서 보였다"로 좁힌다.
+
+

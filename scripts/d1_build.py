@@ -3,6 +3,7 @@
   TOPO_MAX_OBS=5 python scripts/d1_build.py
   TOPO_MAX_OBS=5 OUT=outputs/d2 MARGIN=0.01 python scripts/d1_build.py   # D2 narrow passages
   TOPO_MAX_OBS=5 OUT=outputs/d3 MARGIN=0.01 SG_Y=0.4 python scripts/d1_build.py   # D3 start/goal variation
+  TOPO_MAX_OBS=5 OUT=outputs/d4 MARGIN=0.01 PACKED=1 python scripts/d1_build.py   # D4 tight packed (Day 12)
 """
 import json
 import os
@@ -15,6 +16,7 @@ import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from topoflow.e2 import MAX_OBS, build_layouts  # noqa: E402
 from topoflow.env import random_layout  # noqa: E402
+from topoflow.layouts_hard import packed_layout  # noqa: E402
 from topoflow.tdfm import calibrate_beta, layout_costs, mean_norm_entropy  # noqa: E402
 
 assert MAX_OBS == 5, "run with TOPO_MAX_OBS=5"
@@ -26,7 +28,12 @@ N_TRAIN, N_UNSEEN, N_CALIB, PER_CODE = 2000, 300, 300, 4
 REGIMES = {"uniform": 1.0, "medium": 0.5, "concentrated": 0.1}
 
 
+PACKED = os.environ.get("PACKED", "0") == "1"  # D4: tight packed layouts (H2 family), 4-5 obstacles
+
+
 def sampler(rng):
+    if PACKED:
+        return packed_layout(rng, int(rng.choice([4, 5])), c=MARGIN)
     n = int(rng.choice([3, 4, 5], p=[0.2, 0.4, 0.4]))
     sg = {}
     if SG_Y > 0:
@@ -63,6 +70,7 @@ info = {r: dict(beta=b, entropy_calib=mean_norm_entropy(C["calib"], b),
 info["_stats"] = stats
 info["_margin"] = MARGIN
 info["_sg_y"] = SG_Y
+info["_packed"] = PACKED
 info["_n_train_samples"] = int(sum(len(P) for l in sets["train"] for P in l["found"].values()))
 print(json.dumps(info, indent=1), flush=True)
 with open(f"{OUT}/betas.json", "w") as f:

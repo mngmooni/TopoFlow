@@ -1,4 +1,5 @@
-# Baseline phase results (E0, E2) 
+# Baseline phase results (E0, E2)
+
 All numbers: collision % / deep-penetration % (> 1/3 of obstacle size) / adherence %.
 E2 eval is paired: every model sees identical (layout, code, noise) triples.
 Held-out combinations: ABA, BAB on 3-obstacle layouts (never trained on, except *-full models).
@@ -82,6 +83,7 @@ OT-CFM = within-layout minibatch OT (16 layouts x 16 samples), same backbone, se
 no gain at NFE 20. Invalid mass of B2 on uniform (~1.5%) comes from feasibility-head errors.
 
 ## Day 9 : pre-registered checks
+See PREDICTIONS.md for full tables, hit/miss, and caveats (14/15 hits; miss: D1 selector TV).
 - OT 4x64 per layout: NFE 2/5/20 collision 12.6 / 3.8 / 2.0% (16x16: 15.6 / 4.1 / 2.1).
 - Oracle decomposition (E2, 100 layouts): exact code-blind field NFE 2 Euler 39.6% (B0-attn 42.5%); exact code-conditional 0%
   at all NFE; high-NFE plateaus (B0 1.5%, OT 2.6%, P1 ~1%) are learned-field error.
@@ -90,6 +92,7 @@ no gain at NFE 20. Invalid mass of B2 on uniform (~1.5%) comes from feasibility-
   target (0.03) and validity check (0) inflates B2's invalid rate in D1.
 
 ## Day 11 : TDFM v2 chart flow, seeds, proof, clipping, D3
+See PREDICTIONS.md (Day 11 sections) and CHART_PROOF.md.
 - D2 flow-time: 93% of P1 failures enter violation at t ≥ 0.7; exact field after 0.75 → 0%. High NFE = diversity.
 - Full-path projection: P1 NFE 20 U+M 4.18 → 0.21%, diversity kept. Clearance loss w=100: broken (U 37%).
 - v2 (D2, 3 seeds): U = M = T = 0 at NFE 2/5/20; TV 0.160 (projection 0.160); diversity 0.034/0.052/0.062
@@ -98,10 +101,26 @@ no gain at NFE 20. Invalid mass of B2 on uniform (~1.5%) comes from feasibility-
 - Clipping: 7.3% of training paths at n = 60, ~1/n, 99.98% circle flanks; no measurable pull of v2 samples.
 - D3: v2 0/0/0, diversity 0.061 vs P1 0.051; B2 0.11/0.06/1.76% vs B0-attn 65.1/27.6/10.2% collision.
 
-## Day 12: chart proof, coverage, hard layouts
+## Day 12 : chart proof, coverage, hard layouts
 See CHART_PROOF.md (Prop. 1–2, §6 coverage), PREDICTIONS.md (Day 12), RELATED.md.
 - D1 infeasible charts (1.1–1.5% of found codes): all throats between x-overlapping inflated neighbours; local
   bisection fixes 100% (≤ 74 pts). 58% of D1 not_found codes are chart-certified feasible (planner false negatives).
 - Hard layouts, n = 60 coverage of exact-feasible classes: boxes 100%, stacked 98.1%, tight 94.0%, dense 91.7%;
   bisection 100% everywhere (≤ 121 pts). 0 chart-feasible-but-empty.
 - OOD (D2-trained): P1 73–82% invalid on H1/H2/H4, v2 0%.
+
+## plan B — topology check, revised target, VR chart, OOD quality
+See PREDICTIONS.md (Day 12 step 3', step 2, Day 12b sections), RELATED.md §4–5.
+- Topology: independent winding = requested code on ~239k chart/v2 paths; cut word = winding on all collision-free
+  paths (incl. 20k P1). Valid inside the x-monotone family only (winding does not separate homotopy classes in general).
+- Revised target p* ∝ exp(−β J_c), J_c = chart-constrained shortest cost. TV(original, revised) medium:
+  D1 ≈ 0.24, D2 0.242, D3 0.326; planner support misses ~nothing at c = 0.01. The original selector is 0.30–0.38
+  TV from the revised target (medium); a selector retrained on it reaches 0.05–0.07. Both versions kept.
+- D4 (tight packed, 4–5 obstacles, planner refs): 58% of training paths clipped at n = 60 (D2 7.3%).
+- OOD quality on D4 (v2-D2 vs v2-D4 vs refs): length +2% OOD, v2-D4 = refs (1.288 vs 1.286). Roughness: half of
+  the excess is in-distribution. Hugging 83% for both models vs 65% refs (structural part 65%).
+- v2-VR (PerceiverVR, 30k steps, OU and iid prior): 5161 chart-certified D4 classes incl. 386 refinement-only
+  (v2-D4: 4775); U = M = T = 0 and checker 0 on ~330k paths; diversity = v2-D4, nn-ref +3%; refinement-only classes
+  nn-ref 1.04x; 2.4x training time. Not resolution-invariant: length +3.5% (OU) / +5.1% (iid) with +40 grid points
+  while the data change is +0.3%. Score 6/7.
+- Checkpoint resume verified bit-exact (scripts/resume_test.py).

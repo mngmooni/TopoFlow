@@ -1,7 +1,5 @@
-# Where TDFM v2 sits: what is topology-specific (Day 12 draft)
+# Where TDFM v2 sits: what is topology-specific 
 
-Status: positioning draft, not a systematic survey. Items marked (✓) were checked online on 2026-11-02 (abstract or
-paper page); the others are from memory and must be checked before citing.
 
 ## 1. Four families of "generate inside a constraint set"
 
@@ -54,11 +52,31 @@ Cannot (yet):
 - Comparison against DiRecT-style terminal-constraint sampling or reflected/mirror FM with a hand-built global map;
   these are the closest baselines and are not run.
 
-## 4. To check before writing related work
-Exact citations for: Lou & Ermon 2023 (ICML); Liu, Chen, Wu, Lipman? → verify author list of Mirror Diffusion (NeurIPS
-2023, arXiv 2310.01236); Fishman et al. 2023 (arXiv 2304.05364?); Liu et al. 2017 safe flight corridors (RA-L);
-Deits & Tedrake 2015 IRIS; Marcucci et al. 2023 GCS motion planning (Science Robotics); Xiao et al. 2023 SafeDiffuser;
-Carvalho et al. 2023 motion planning diffusion; homotopy-class planning (Bhattacharya et al. 2012, h-signature).
+## 4. Anticipated objections (novelty defence?)
 
-Sources checked: arXiv 2606.15359 (DiRecT), 2507.04384 (Mao et al.), 2603.10330 (PC-Diffuser), 2603.26696 (TMPD),
-2310.01236 (Mirror Diffusion), 2101.11565 (GCS).
+| objection | answer we can give now | what would still weaken us |
+|---|---|---|
+| "It is a safe corridor plus a tanh." | Yes for each part (§2). The claim is the pairing: a learned class distribution × an exact per-class chart, which no corridor planner (one optimal path) or domain-reparameterized model (convex domain) provides. | A paper that already learns a distribution inside topology-indexed corridors. Not found in the searches so far; not a systematic survey. |
+| "Projection after sampling does the same." | Matched evaluation: projection gets U+M 0.21% (not 0), needs a per-sample solver, lowers low-NFE diversity (0.031 vs 0.052 at NFE 5). | Projection onto the *chart* (not the free space) would also be exact; v2's advantage there is cost and diversity only. Not run. |
+| "x-monotone, disks/boxes, 2D." | Stated as scope (CHART_PROOF A1–A6, §8). Coverage under harder layouts: 92–100% at n=60, 100% after bisection. | No evidence beyond the family. |
+| "The class target is just the planner's output." | Day 12: the cost definition moved p* by TV 0.24 (medium); revised target = chart support + chart-constrained shortest cost J_c, which does not depend on the planner's sampling. J_c is an upper bound on the class optimum, not the optimum. | J_c is chart-dependent; a looser chart would change it. |
+| "Topology check is circular." | Independent winding check agrees on ~239k paths; valid only in the x-monotone family (winding does not separate homotopy classes in general). | — |
+
+## 5. Citations 
+- Lou, Ermon. Reflected Diffusion Models. ICML 2023 (PMLR 202). ✓
+- Liu, Chen, Theodorou, Tao. Mirror Diffusion Models for Constrained and Watermarked Generation. NeurIPS 2023;
+  arXiv 2310.01236. ✓
+- Fishman, Klarner, De Bortoli, Mathieu, Hutchinson. Diffusion Models for Constrained Domains. TMLR 2023;
+  arXiv 2304.05364. ✓ (log-barrier and reflected variants; the "FM on constrained manifolds" wording above is ours.)
+- Xiao et al. SafeDiffuser: Safe Planning with Diffusion Probabilistic Models. arXiv 2306.00148 (2023); ICLR 2025. ✓
+- Bhattacharya, Likhachev, Kumar. Topological constraints in search-based robot path planning. Autonomous Robots
+  2012 (h-signature). ✓ (CMU RI page); also Bhattacharya, Kumar, Likhachev AAAI 2010 for homotopy class constraints.
+- Deits, Tedrake. Computing large convex regions of obstacle-free space through semidefinite programming (IRIS).
+  WAFR 2014, in Algorithmic Foundations of Robotics XI (Springer 2015). ✓ (MIT copy)
+- Marcucci et al. Motion planning around obstacles with convex optimization (GCS). Science Robotics 2023;
+  arXiv 2205.04422 / 2101.11565 (GCS theory). ✓ for 2101.11565; check the motion-planning arXiv number.
+- Carvalho et al. Motion Planning Diffusion. arXiv 2308.01557 (IROS 2023 — venue from memory); extended version
+  arXiv 2412.19948. ✓ arXiv
+- Liu et al. Planning dynamically feasible trajectories for quadrotors using safe flight corridors. RA-L 2017.
+  **Not verified** (search did not return the paper page).
+- DiRecT 2606.15359, Mao et al. 2507.04384, PC-Diffuser 2603.10330, TMPD 2603.26696: ✓ (Day 12).

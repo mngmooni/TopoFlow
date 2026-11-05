@@ -173,6 +173,11 @@ Reading:
 Chart feasible but exact tube empty: 0 everywhere. The fixed-grid limit is resolution at circle throats; the trained v2
 (60 tokens) only reaches the n = 60 column.
 
+### D4 and variable resolution (Day 12b)
+D4 unseen (300 layouts, c = 0.01): 5161 chart-certified classes after bisection, 4775 feasible at n = 60 (92.5%).
+A variable-resolution flow (PerceiverVR, one token per grid point) generates all 5161 with 0 violations; see
+PREDICTIONS.md Day 12b. Prop. 1 applies to each sample's own grid, so the guarantee does not depend on n.
+
 ## 7. Independent numerical check (scripts/chart_verify.py)
 
 The checker uses none of the chart's code and none of `Env.collision_mask` / crossing-word code: 64 points per
@@ -196,4 +201,9 @@ over its x-extent; u from N(0, 1), N(0, 9), ±50 (saturated), and ±50/0 mixture
   (concave piecewise linear, so the interval max is still easy) but are not implemented.
 - **Disjointness (A1).** Overlapping obstacles merge into one shape; their per-obstacle codes are then not
   independent classes.
+- **Topology verification is family-restricted.** Same code ⇒ same homotopy class holds inside the chart (the chart
+  is a product of intervals, so the straight-line homotopy between two decoded paths stays in it). The independent
+  winding-number check (Day 12) only separates classes because paths are x-monotone; winding numbers do not
+  distinguish homotopy classes in general (commutator words have zero winding). Nothing here is claimed for
+  non-x-monotone paths.
 - **Polyline only.** A robot tracking the polyline continuously is a separate question.

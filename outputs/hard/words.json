@@ -1,0 +1,74 @@
+{
+ "H1": {
+  "chart_n": 19404,
+  "chart_wind_ok": 19404,
+  "chart_free": 19404,
+  "chart_word_eq": 19404,
+  "w3_codes": 2091,
+  "w3_empty": 2091,
+  "bad": [],
+  "v2": {
+   "n": 13048,
+   "wind_ok": 13048,
+   "free": 13048,
+   "word_eq": 13048
+  },
+  "p1": {
+   "n": 13048,
+   "free": 3711,
+   "wind_ok_free": 3667,
+   "word_eq": 3711
+  }
+ },
+ "H2": {
+  "chart_n": 28458,
+  "chart_wind_ok": 28458,
+  "chart_free": 28458,
+  "chart_word_eq": 28458,
+  "w3_codes": 0,
+  "w3_empty": 0,
+  "bad": [],
+  "v2": {
+   "n": 19184,
+   "wind_ok": 19184,
+   "free": 19184,
+   "word_eq": 19184
+  },
+  "p1": {
+   "n": 19184,
+   "free": 13003,
+   "wind_ok_free": 13003,
+   "word_eq": 13003
+  }
+ },
+ "H3": {
+  "chart_n": 122172,
+  "chart_wind_ok": 122172,
+  "chart_free": 122172,
+  "chart_word_eq": 122172,
+  "w3_codes": 0,
+  "w3_empty": 0,
+  "bad": []
+ },
+ "H4": {
+  "chart_n": 21792,
+  "chart_wind_ok": 21792,
+  "chart_free": 21792,
+  "chart_word_eq": 21792,
+  "w3_codes": 1965,
+  "w3_empty": 1965,
+  "bad": [],
+  "v2": {
+   "n": 14736,
+   "wind_ok": 14736,
+   "free": 14736,
+   "word_eq": 14736
+  },
+  "p1": {
+   "n": 14736,
+   "free": 3511,
+   "wind_ok_free": 3506,
+   "word_eq": 3511
+  }
+ }
+}
