@@ -52,6 +52,7 @@ def is_main_guard(node: ast.AST) -> bool:
     )
 
 
+
 def may_evaluate_at_import(node: ast.AST) -> bool:
     if isinstance(node, (ast.Import, ast.ImportFrom, ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef,
                          ast.Pass)):
@@ -63,8 +64,23 @@ def may_evaluate_at_import(node: ast.AST) -> bool:
         return value is not None and any(isinstance(x, ast.Call) for x in ast.walk(value))
     if isinstance(node, ast.Expr):
         return not isinstance(node.value, ast.Constant)
-    return isinstance(node, (ast.For, ast.AsyncFor, ast.While, ast.If, ast.With, ast.AsyncWith,
-                              ast.Try, ast.TryStar, ast.Raise, ast.AugAssign))
+
+    control_flow_nodes = (
+        ast.For,
+        ast.AsyncFor,
+        ast.While,
+        ast.If,
+        ast.With,
+        ast.AsyncWith,
+        ast.Try,
+        ast.Raise,
+        ast.AugAssign,
+    )
+
+    if hasattr(ast, "TryStar"):
+        control_flow_nodes += (ast.TryStar,)
+
+    return isinstance(node, control_flow_nodes)
 
 
 def audit_file(path: Path, root: Path = ROOT) -> Entry:
