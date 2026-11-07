@@ -70,11 +70,7 @@ We consider geometric path planning in a two-dimensional Euclidean space contain
 We introduce a nonnegative clearance parameter $c$ and define an expanded obstacle region $O_j^{(c)}$ for each obstacle. For a circular obstacle, the radius is increased by $c$. For an axis-aligned rectangular obstacle, each half-width and half-height is increased by $c$. Accordingly, the rectangular expansion is axis-aligned and should not be interpreted as an exact Euclidean-distance offset with rounded corners. The clearance-constrained free space is defined as
 
 $$
-\mathcal{F}_c
-=
-\mathbb{R}^2
-\setminus
-\bigcup_{j=1}^{M}\mathrm{int}(O_j^{(c)}).
+\tau_{\mathbf{y}} = \bigl((x_0,y_0),(x_1,y_1),\ldots,(x_{n+1},y_{n+1})\bigr)
 $$
 
 A path is geometrically feasible if it connects the specified endpoints and remains in $\mathcal{F}_c$. In particular, feasibility is evaluated over the complete path segments rather than only at a finite set of waypoints. The distinction is important because collision-free waypoint positions do not necessarily imply that the straight-line segments connecting them avoid obstacles.
