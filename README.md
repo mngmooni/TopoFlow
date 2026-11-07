@@ -1,5 +1,12 @@
 # TopoFlow 
 
+
+## Abstract
+
+Generative path planning offers a means of modeling diverse trajectories in obstacle-constrained environments, yet explicit route conditioning does not necessarily guarantee geometric feasibility. We investigate whether learning generative flows directly in class-specific feasible representations offers practical advantages over correcting unconstrained trajectories during inference. We present Topology-Aware Flow Matching (TDFM), a framework that combines binary route descriptors with feasibility-preserving charts for two-dimensional, x-monotone polygonal paths. Each chart constrains complete path segments through conservative obstacle-clearance bands and maps unconstrained latent coordinates to admissible waypoint intervals. Conditional Flow Matching is then trained in the resulting chart space. We establish geometric validity under explicit chart-construction assumptions and identify additional conditions required for correspondence between route descriptors and reduced crossing words.
+
+Independent verification found no geometric violations across 695,488 decoded paths and approximately 42.6 million segments. A separate coverage audit distinguished chart representability from finite-budget planner discovery, identifying 2,801 feasible D4 route-code instances missed by the reference planner. In matched experiments, direct chart-space generation achieved greater within-class diversity and lower measured inference cost than an adapted chart-aware correction baseline, while both maintained geometric validity. The generated trajectories retained approximately 95% of the reference planner's within-class diversity but exhibited increased proximity to obstacle boundaries. These findings highlight the trade-offs among feasibility, representational coverage, distributional fidelity, and computational efficiency in topology-conditioned generative planning.
+
 # 1. Introduction
 
 Geometric path planning seeks collision-free paths connecting a start and a goal in environments containing obstacles. In such environments, multiple routes may exist that navigate around obstacles in qualitatively different ways. For fixed endpoints, these routes can belong to distinct *homotopy classes*, whose members cannot be continuously deformed into one another while remaining in free space. A generative planner should therefore be able to represent multiple route alternatives and, when desired, generate paths associated with a specified route class. However, specifying an intended route does not by itself ensure that a generated path satisfies the underlying geometric constraints.
@@ -27,7 +34,7 @@ This study is restricted to static two-dimensional environments with circular an
 
 ## 2.1. Topology-Aware Path Planning
 
-In obstacle-constrained environments, multiple collision-free paths may connect the same start and goal configurations while belonging to distinct homotopy classes. Classical topology-aware planning approaches explicitly distinguish these alternatives using topological descriptors, such as winding-based signatures and other path invariants, and incorporate them into search or optimization procedures. Such representations enable planners to reason about route alternatives beyond geometric path length alone. However, the topological information captured by a descriptor depends on its mathematical definition and the assumptions of the planning environment.
+Classical topology-aware planning approaches distinguish alternative routes using topological descriptors and incorporate such information into search or optimization. For example, Bhattacharya et al. (2012) develop a search-based planning framework that incorporates topological constraints and distinguishes paths through homology-based representations.
 
 Recent work has extended topology-aware reasoning to generative and region-based planning. Tian et al. (2026) introduce Topological Motion Planning Diffusion (TMPD) for tethered robot navigation, where a diffusion-based front-end generates diverse trajectory candidates and a topology-aware back-end evaluates their compatibility with the robot's accumulated tether configuration using generalized winding numbers. Their framework emphasizes topological exploration and candidate filtering under history-dependent entanglement constraints. In a complementary direction, Dong et al. (2026) propose a reference-path-free corridor generation framework based on multi-scale graphs of convex sets. By extending visibility deformation and uniform visibility deformation to sequences of convex sets, their approach identifies and consolidates topologically related corridors while retaining alternative routes.
 
@@ -1247,16 +1254,25 @@ Overall, the study illustrates the value of distinguishing route specification, 
 The conclusions remain specific to the evaluated two-dimensional x-monotone path family. Extending the framework to more general topology, adaptable path representations, and dynamically feasible robot motion remains an open direction.
 
 
+# References
 
-### Encoding and Clipping Diagnostics
+Bhattacharya, S., Likhachev, M., & Kumar, V. (2012). Topological constraints in search-based robot path planning. *Autonomous Robots, 33*(3), 273–290. https://doi.org/10.1007/s10514-012-9304-1
 
-The clipping statistics recorded during training require a distinction between nominal chart-bound violations and effective clipping during reference encoding. The bookkeeping counter in `training_set()` identifies reference paths containing waypoints outside the nominal admissible intervals. In contrast, `chart.encode()` normalizes waypoint coordinates using an EPS-contracted interval width and subsequently clips the normalized values to $[-1+10^{-6},1-10^{-6}]$ before applying the inverse hyperbolic tangent.
+Carvalho, J., Le, A. T., Baierl, M., Koert, D., & Peters, J. (2023). Motion Planning Diffusion: Learning and planning of robot motions with diffusion models. In *Proceedings of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)*. https://doi.org/10.1109/IROS55552.2023.10342382
 
-Consequently, effective encoding may clip waypoints that lie inside the nominal admissible intervals but sufficiently close to their boundaries.
+Carvalho, J., Le, A. T., Kicki, P., Koert, D., & Peters, J. (2025). Motion Planning Diffusion: Learning and adapting robot motion planning with diffusion models. *IEEE Transactions on Robotics, 41*, 4881–4901. https://doi.org/10.1109/TRO.2025.3593109
 
-In a diagnostic using 300 training layouts at clearance $c=0.01$, the nominal and effective affected-path rates were 7.2% and 7.9% on D2, respectively, and 56.8% and 57.4% on D4. At the waypoint level, the corresponding rates increased from 0.18% to 0.20% on D2 and from 1.64% to 1.68% on D4.
+Dong, H., Li, M., Guo, M., & Li, Z. (2026). Homotopy-aware corridor generation without predefined reference paths. *IEEE Robotics and Automation Letters, 11*(10), 11196–11203. https://doi.org/10.1109/LRA.2026.3723318
 
-The original counter therefore underestimates effective clipping. This discrepancy affects the reported diagnostic statistics but does not change the training targets, which were generated using the actual encoding procedure.
+Giaretta, P., Li, Z., & Azizan, N. (2026). DiRecT: Safe diffusion-based planning via receding-horizon denoising. *arXiv preprint arXiv:2606.15359*. https://arxiv.org/abs/2606.15359
 
-Clipped normalized coordinates are mapped to latent values with absolute magnitude approximately 7.254. Such values motivate further investigation of encoding saturation and boundary-sensitive distribution learning. However, the present diagnostic does not establish a causal relationship between clipping and the observed obstacle-proximity bias.
+Janner, M., Du, Y., Tenenbaum, J. B., & Levine, S. (2022). Planning with diffusion for flexible behavior synthesis. In *Proceedings of the 39th International Conference on Machine Learning (ICML)*, PMLR 162, 9902–9915. https://proceedings.mlr.press/v162/janner22a.html
+
+Li, X., Liang, E., & Chen, M. (2026). Gauge Flow Matching: Efficient constrained generative modeling over general convex set and beyond. In *International Conference on Learning Representations (ICLR)*. https://proceedings.iclr.cc/paper_files/paper/2026/hash/9304fe9848ca4db73c79ac0bac414aef-Abstract-Conference.html
+
+Lipman, Y., Chen, R. T. Q., Ben-Hamu, H., Nickel, M., & Le, M. (2023). Flow Matching for generative modeling. In *International Conference on Learning Representations (ICLR)*. https://arxiv.org/abs/2210.02747
+
+Ma, J., Yang, Q., Zhang, Y., Yan, L., Cao, Z., Zhang, Y., & Gao, Y. (2026). PolyFlow: Safe and efficient polytope-constrained Flow Matching with constraint embedding and projection-free update. In *Proceedings of the 43rd International Conference on Machine Learning (ICML)*, PMLR 306, 85208–85237. https://proceedings.mlr.press/v306/ma26ar.html
+
+Tian, Y., Xu, X., Nguyen, T.-M., & Cao, M. (2026). Topological Motion Planning Diffusion: Generative tangle-free path planning for tethered robots in obstacle-rich environments. *arXiv preprint arXiv:2603.26696*. https://arxiv.org/abs/2603.26696
 
