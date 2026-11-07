@@ -60,6 +60,7 @@ Within this broader context, **Topology-Aware Flow Matching (TDFM)** investigate
 Our study also examines properties that are not captured by constraint satisfaction alone. In particular, we evaluate the representability of candidate route classes, distinguish intended-route adherence from geometric feasibility, and assess the distributional fidelity and diversity of generated paths within individual route classes. By comparing direct chart-space generation with an adapted chart-aware correction baseline under matched evaluation conditions, we investigate the practical consequences of incorporating feasibility into the generative representation rather than enforcing it through inference-time correction. The resulting analysis is intended to characterize the capabilities and limitations of topology-conditioned Flow Matching within the specified path family, rather than establish general superiority over existing constrained generative planners.
 
 
+
 # 3. Problem Formulation
 
 ## 3.1. Planning Environment and Path Representation
@@ -73,7 +74,7 @@ $$
 =
 \mathbb{R}^2
 \setminus
-\bigcup_{j=1}^{M}\operatorname{int}(O_j^{(c)}).
+\bigcup_{j=1}^{M}\mathrm{int}(O_j^{(c)}).
 $$
 
 A path is geometrically feasible if it connects the specified endpoints and remains in $\mathcal{F}_c$. In particular, feasibility is evaluated over the complete path segments rather than only at a finite set of waypoints. The distinction is important because collision-free waypoint positions do not necessarily imply that the straight-line segments connecting them avoid obstacles.
@@ -81,7 +82,7 @@ A path is geometrically feasible if it connects the specified endpoints and rema
 We restrict attention to a family of $x$-monotone, piecewise-linear paths. For each environment and discretization resolution, we construct a strictly increasing horizontal grid,
 
 $$
-x_s=x_0<x_1<\cdots<x_n<x_{n+1}=x_g.
+x_s=x_0 \lt x_1 \lt \cdots \lt x_n \lt x_{n+1}=x_g.
 $$
 
 The grid contains $n$ interior positions and may include additional sampling locations near the horizontal boundaries of expanded obstacles. A candidate path is parameterized by its interior vertical coordinates,
@@ -114,24 +115,4 @@ $$
 $$
 
 This set provides the geometric domain for the subsequent formulation of route-conditioned path generation. Its members satisfy the prescribed collision constraints but are not yet distinguished by topological route descriptors. We introduce the route representation and its relationship to path homotopy in the following subsection.
-
-
-
-The clearance-constrained free space is defined as
-
-```math
-\mathcal{F}_c
-=
-\mathbb{R}^2
-\setminus
-\bigcup_{j=1}^{M}\operatorname{int}(O_j^{(c)}).
-```
-
-A path is geometrically feasible if it remains in the free space.
-
-
-
-$$
-E=mc^2
-$$
 
