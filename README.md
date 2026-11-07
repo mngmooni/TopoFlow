@@ -904,19 +904,14 @@ These results support the implementation-level correctness of the geometric char
 
 Figure 1 summarizes the relationship between chart construction, local refinement, and route-class infeasibility.
 
-![Figure 1. Chart coverage across environment families](outputs/final/figs/chart_coverage.png)
+<img width="1424" height="601" alt="chart_coverage" src="https://github.com/user-attachments/assets/65287149-d631-4a4f-9c43-86d21d817bc9" />
 
-**Figure 1.** Route-code coverage of the feasibility-preserving chart across seven environment families. Blue indicates classes representable by the default 60-point chart, green indicates additional classes recovered through local grid refinement, and gray indicates classes certified infeasible within the specified clearance-constrained, x-monotone path family. Percentages are relative to all enumerated route codes; the default-grid coverage rate among feasible classes is reported separately in the text.
 
-All 6,240 D2 route codes and all 6,152 D3 route codes were successfully represented by the default chart.
 
-More challenging environments exhibited resolution-dependent exclusions. In D4, 4,775 of the 7,424 route-code instances were representable on the default grid. Local refinement recovered another 420 instances, while the remaining 2,229 were certified infeasible within the considered path family.
+**Figure 1.** Route-code coverage of the deterministic feasible-chart construction across seven environment families. Blue indicates route codes admitting a valid chart at the default resolution of 60 interior waypoints, green indicates additional codes recovered through local grid refinement, and gray indicates codes certified infeasible within the specified clearance-constrained, x-monotone path family. Percentages are relative to all enumerated route codes. The figure measures chart-construction coverage, not the tested generative model's ability to sample every displayed environment.
 
-Consequently, the default chart covered **91.9% of feasible D4 route-code instances**, and refinement recovered the remainder.
+Importantly, default-grid chart representability should not be equated with trained-model coverage. The evaluated v2 architecture accepts at most five obstacle tokens, whereas the H3 stress-test family contains six to eight obstacles. Moreover, Experiments B and C evaluate generative performance on D2 and D3 rather than the H1–H4 stress-test families. The stress-test results therefore establish properties of the deterministic chart construction, not empirical generalization of the trained Flow Matching model to all these environments.
 
-Across H1–H4, the default-grid coverage among feasible route-code instances ranged from 91.7% to 100%. Local refinement recovered every remaining feasible instance identified by the geometric audit, while no conservative exclusions or unresolved cases remained in these tested configurations.
-
-This distinction is important for interpreting model coverage. The trained v2 model operates on the fixed 60-point representation and cannot directly generate paths from charts requiring additional grid points. Therefore, the coverage achieved by the geometric audit is broader than the generative model's default-grid coverage.
 
 ### 6.1.3. Reference-planner failures versus geometric infeasibility
 
@@ -962,7 +957,8 @@ The observed difference therefore represents a diversity–geometric-quality tra
 
 Figure 2 compares within-class diversity against standardized inference time.
 
-![Figure 2. Safety, diversity, and inference-time trade-offs](outputs/final/figs/pareto_time_diversity.png)
+<img width="1980" height="903" alt="pareto_time_diversity" src="https://github.com/user-attachments/assets/09ae2c83-0978-46c2-ac0e-7382d2a4f8d3" />
+
 
 **Figure 2.** Within-class diversity versus standardized inference time on D2 and D3. Filled markers indicate configurations with zero measured clearance/class violations, while hollow markers indicate at least one violation. Numeric labels denote neural function evaluations. Timings were measured on one CPU thread with batch size 320. Primary NFE 5 and 20 comparisons include repeated sampling-noise seeds; secondary operating points and free-space correction baselines contain additional single-seed evaluations.
 
@@ -992,9 +988,11 @@ Importantly, the reference planner defines the empirical comparison distribution
 
 Figure 3 compares reference trajectories with samples from v2 and P1 + DiRecT-chart for identical obstacle layouts and requested route classes.
 
-![Figure 3. Class-matched trajectory comparisons](outputs/final/figs/matched_trajectories.png)
+<img width="1731" height="1421" alt="matched_trajectories" src="https://github.com/user-attachments/assets/48b85495-1d6d-42cc-b874-a9d0ebc1f3d8" />
 
-**Figure 3.** Class-matched trajectory examples from the reference planner, TDFM v2, and P1 + DiRecT-chart. Each row uses the same environment and route code. The reference column contains four available planner trajectories, while the generated columns each show eight samples at NFE 20. The examples illustrate within-class variation without implying that the depicted cases are statistically representative of all evaluation layouts.
+
+**Figure 3.** Class-matched trajectory examples from the reference planner, TDFM v2, and P1 + DiRecT-chart. The examples were selected by a fixed rule before inspecting generated outcomes: the first three unseen D2 layouts were used, with the route class containing the largest number of planner references selected in each layout and ties resolved by code order. Each row uses identical environment geometry and route conditioning. The generated columns display eight samples per method at NFE 20. These examples illustrate geometric variation within a route class; the aggregate fidelity results are reported separately.
+
 
 Both generative methods reproduced the general routing structure of the reference paths. Their samples differed, however, in the extent and distribution of geometric variation within the same class.
 
@@ -1244,3 +1242,18 @@ The generated distribution also approximated several reference-planner statistic
 Overall, the study illustrates the value of distinguishing route specification, feasible representation, and conditional distribution learning. Its findings support the use of class-specific feasible coordinates as one approach to constrained path generation while emphasizing the limits imposed by representation coverage, topological assumptions, and distributional approximation.
 
 The conclusions remain specific to the evaluated two-dimensional x-monotone path family. Extending the framework to more general topology, adaptable path representations, and dynamically feasible robot motion remains an open direction.
+
+
+
+### Encoding and Clipping Diagnostics
+
+The clipping statistics recorded during training require a distinction between nominal chart-bound violations and effective clipping during reference encoding. The bookkeeping counter in `training_set()` identifies reference paths containing waypoints outside the nominal admissible intervals. In contrast, `chart.encode()` normalizes waypoint coordinates using an EPS-contracted interval width and subsequently clips the normalized values to $[-1+10^{-6},1-10^{-6}]$ before applying the inverse hyperbolic tangent.
+
+Consequently, effective encoding may clip waypoints that lie inside the nominal admissible intervals but sufficiently close to their boundaries.
+
+In a diagnostic using 300 training layouts at clearance $c=0.01$, the nominal and effective affected-path rates were 7.2% and 7.9% on D2, respectively, and 56.8% and 57.4% on D4. At the waypoint level, the corresponding rates increased from 0.18% to 0.20% on D2 and from 1.64% to 1.68% on D4.
+
+The original counter therefore underestimates effective clipping. This discrepancy affects the reported diagnostic statistics but does not change the training targets, which were generated using the actual encoding procedure.
+
+Clipped normalized coordinates are mapped to latent values with absolute magnitude approximately 7.254. Such values motivate further investigation of encoding saturation and boundary-sensitive distribution learning. However, the present diagnostic does not establish a causal relationship between clipping and the observed obstacle-proximity bias.
+
