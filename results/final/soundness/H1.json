@@ -1,0 +1,33 @@
+{
+ "dataset": "H1",
+ "c": 0.01,
+ "layouts": 300,
+ "codes": 5632,
+ "ok60": 3234,
+ "bisect_recovered": 64,
+ "checked_charts": 3298,
+ "checked_charts_bisect": 64,
+ "decoded_paths": 26384,
+ "segments": 1613520,
+ "violations_euclid": 0,
+ "violations_square": 0,
+ "word_mismatch_paths": 0,
+ "min_margin_euclid": 8.972415801115213e-07,
+ "min_margin_square": 8.972415801115213e-07,
+ "exact_rechecked_segments": 0,
+ "exact_failed": 0,
+ "min_band_width": 5.3239160554802156e-05,
+ "min_band_width_n60": 0.0005362796045895596,
+ "grid_strict_all": true,
+ "setup": {
+  "a3_fail": 0,
+  "a3_min_margin": 0.10827131476493262,
+  "not_disjoint": 0,
+  "cuts_invalid": 184,
+  "cx_not_distinct": 0
+ },
+ "word_mismatch_on_invalid_cut_layouts": 0,
+ "violation_records": [],
+ "seconds": 7.1,
+ "latents_per_chart": 8
+}

@@ -1,0 +1,44 @@
+{
+ "res_n30": {
+  "n": 30,
+  "clip_rate": 0.15478986152724916,
+  "clip_amount_median": 0.016836462020286797,
+  "clip_amount_p90": 0.05148431423407904
+ },
+ "res_n60": {
+  "n": 60,
+  "clip_rate": 0.07298161794477286,
+  "clip_amount_median": 0.012060422116261675,
+  "clip_amount_p90": 0.03668707233319939,
+  "binding_share": {
+   "circle": 0.9998176180922852,
+   "box": 0.0001823819077147547,
+   "outer": 0.0
+  },
+  "circle_share_of_obstacles": 0.6577901430842608
+ },
+ "res_n120": {
+  "n": 120,
+  "clip_rate": 0.03360595999676087,
+  "clip_amount_median": 0.008153443390146786,
+  "clip_amount_p90": 0.027715363452640245
+ },
+ "res_n240": {
+  "n": 240,
+  "clip_rate": 0.016256377034577697,
+  "clip_amount_median": 0.005764304946543508,
+  "clip_amount_p90": 0.02055691629373922
+ },
+ "v2_nearest": {
+  "rms_to_original": 0.04353728839411448,
+  "rms_to_clipped": 0.04353610361661944,
+  "frac_closer_to_clipped": 0.008229166666666666
+ },
+ "div_vs_clip": {
+  "n_groups": 1186,
+  "spearman": -0.053736466569217975,
+  "div_ratio_clip0": 1.0023653745675474,
+  "div_ratio_clipped": 0.9366822084862799,
+  "frac_groups_with_clipping": 0.05649241146711636
+ }
+}

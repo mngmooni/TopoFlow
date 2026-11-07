@@ -1,0 +1,101 @@
+{
+ "c": 0.03,
+ "summary": {
+  "unseen": {
+   "charts_all": 6208,
+   "found": 4228,
+   "found_ok60": 0.989356669820246,
+   "found_ok120": 0.9931409649952696,
+   "found_ok240": 0.9938505203405865,
+   "found_okG2": 0.9957426679280984,
+   "found_exact": 1.0,
+   "n_bad60": 45,
+   "bad_recovered": {
+    "ok120": 16,
+    "ok240": 19,
+    "okG2": 27,
+    "exact": 45
+   },
+   "bad_overlap_switch": 45,
+   "bad_causes": {
+    "pair_overlap": 45
+   },
+   "bad_by_m": {
+    "3": [
+     0,
+     520
+    ],
+    "4": [
+     11,
+     1519
+    ],
+    "5": [
+     34,
+     2189
+    ]
+   },
+   "pmass_uncovered_mean": 0.006339311820141146,
+   "pmass_uncovered_max": 0.8376858539386287,
+   "pmass_bad_found_mean": 0.006339311820141148,
+   "layouts_with_uncovered_found": 9,
+   "notfound": 1980,
+   "notfound_ok60": 1147,
+   "notfound_exact": 1167,
+   "exact_all": 5395,
+   "exact_ok60": 5330,
+   "ok60_not_exact": 0,
+   "band_ratio_median": 0.9869409701497628,
+   "band_ratio_p10": 0.9773386038749261,
+   "ref_inside_mean": 0.7483066379791218,
+   "found_overlap_switch": 0.07237464522232734
+  },
+  "train": {
+   "charts_all": 6560,
+   "found": 4329,
+   "found_ok60": 0.984984984984985,
+   "found_ok120": 0.993993993993994,
+   "found_ok240": 0.9990759990759991,
+   "found_okG2": 0.9990759990759991,
+   "found_exact": 1.0,
+   "n_bad60": 65,
+   "bad_recovered": {
+    "ok120": 39,
+    "ok240": 61,
+    "okG2": 61,
+    "exact": 65
+   },
+   "bad_overlap_switch": 65,
+   "bad_causes": {
+    "pair_overlap": 65
+   },
+   "bad_by_m": {
+    "3": [
+     2,
+     415
+    ],
+    "4": [
+     12,
+     1500
+    ],
+    "5": [
+     51,
+     2414
+    ]
+   },
+   "pmass_uncovered_mean": 0.009054796197969154,
+   "pmass_uncovered_max": 0.44638107802231214,
+   "pmass_bad_found_mean": 0.009054796197969154,
+   "layouts_with_uncovered_found": 13,
+   "notfound": 2231,
+   "notfound_ok60": 1324,
+   "notfound_exact": 1349,
+   "exact_all": 5678,
+   "exact_ok60": 5588,
+   "ok60_not_exact": 0,
+   "band_ratio_median": 0.9875864426117049,
+   "band_ratio_p10": 0.9798624613388068,
+   "ref_inside_mean": 0.7427689180737962,
+   "found_overlap_switch": 0.06976206976206976
+  }
+ }
+}

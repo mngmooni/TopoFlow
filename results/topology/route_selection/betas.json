@@ -1,0 +1,17 @@
+{
+ "uniform": {
+  "beta": 0.0,
+  "entropy_calib": 1.0,
+  "entropy_unseen": 1.0
+ },
+ "medium": {
+  "beta": 7.3636356543588795,
+  "entropy_calib": 0.5000000000000001,
+  "entropy_unseen": 0.5043177009715073
+ },
+ "concentrated": {
+  "beta": 37.0789762416923,
+  "entropy_calib": 0.1,
+  "entropy_unseen": 0.09477598057630494
+ }
+}

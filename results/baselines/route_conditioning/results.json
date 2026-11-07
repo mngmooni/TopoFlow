@@ -1,0 +1,388 @@
+{
+ "e0_balanced": {
+  "classes": [
+   [
+    "0"
+   ],
+   [
+    "1"
+   ]
+  ],
+  "train_probs": [
+   0.489,
+   0.511
+  ],
+  "oracle_U": {
+   "1": {
+    "collision": 1.0,
+    "frac_a": NaN,
+    "roughness": 6.4138913170728485e-06
+   },
+   "2": {
+    "collision": 0.431,
+    "frac_a": 0.5413005272407733,
+    "roughness": 3.500203392349011e-05
+   },
+   "5": {
+    "collision": 0.007,
+    "frac_a": 0.5231621349446123,
+    "roughness": 5.7111470890342136e-05
+   },
+   "10": {
+    "collision": 0.0,
+    "frac_a": 0.521,
+    "roughness": 6.160904086796204e-05
+   },
+   "50": {
+    "collision": 0.0,
+    "frac_a": 0.5205,
+    "roughness": 6.880146784079247e-05
+   }
+  },
+  "oracle_C": {
+   "1": {
+    "collision": 0.0,
+    "frac_a": 0.5185,
+    "roughness": 5.712219904833465e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   },
+   "2": {
+    "collision": 0.0,
+    "frac_a": 0.5185,
+    "roughness": 5.7407333123897697e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   },
+   "5": {
+    "collision": 0.0,
+    "frac_a": 0.5185,
+    "roughness": 5.985410903081507e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   },
+   "10": {
+    "collision": 0.0,
+    "frac_a": 0.5185,
+    "roughness": 6.358567071080029e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   },
+   "50": {
+    "collision": 0.0,
+    "frac_a": 0.5185,
+    "roughness": 6.981017317705695e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   }
+  },
+  "B0": {
+   "0": {
+    "per_k": {
+     "1": {
+      "collision": 1.0,
+      "frac_a": NaN,
+      "roughness": 0.18234299083634553
+     },
+     "2": {
+      "collision": 0.4385,
+      "frac_a": 0.5396260017809439,
+      "roughness": 0.0031990315779311207
+     },
+     "5": {
+      "collision": 0.09,
+      "frac_a": 0.5401098901098901,
+      "roughness": 0.00035361766327295487
+     },
+     "10": {
+      "collision": 0.048,
+      "frac_a": 0.5330882352941176,
+      "roughness": 0.00022646222665982473
+     },
+     "50": {
+      "collision": 0.024,
+      "frac_a": 0.5353483606557377,
+      "roughness": 7.840940543059528e-05
+     }
+    },
+    "params": 866364,
+    "final_loss": 0.04643038728833199,
+    "train_sec": 305
+   },
+   "1": {
+    "per_k": {
+     "1": {
+      "collision": 0.9995,
+      "frac_a": 1.0,
+      "roughness": 0.17804389221598177
+     },
+     "2": {
+      "collision": 0.4395,
+      "frac_a": 0.5709188224799286,
+      "roughness": 0.003467777766911869
+     },
+     "5": {
+      "collision": 0.0955,
+      "frac_a": 0.5444997236042012,
+      "roughness": 0.0003898743336959736
+     },
+     "10": {
+      "collision": 0.054,
+      "frac_a": 0.5301268498942917,
+      "roughness": 0.0002147243304310279
+     },
+     "50": {
+      "collision": 0.0315,
+      "frac_a": 0.5214248838409912,
+      "roughness": 8.132734129112735e-05
+     }
+    },
+    "params": 866364,
+    "final_loss": 0.046156612776219845,
+    "train_sec": 298
+   }
+  },
+  "B1": {
+   "0": {
+    "per_k": {
+     "1": {
+      "collision": 0.535,
+      "frac_a": 0.45698924731182794,
+      "roughness": 0.17814241088767457,
+      "adherence": 0.9085,
+      "valid_adherence": 0.465
+     },
+     "2": {
+      "collision": 0.0,
+      "frac_a": 0.509,
+      "roughness": 0.003309259741765795,
+      "adherence": 1.0,
+      "valid_adherence": 1.0
+     },
+     "5": {
+      "collision": 0.001,
+      "frac_a": 0.509009009009009,
+      "roughness": 0.0003467556832623751,
+      "adherence": 0.9995,
+      "valid_adherence": 0.999
+     },
+     "10": {
+      "collision": 0.0055,
+      "frac_a": 0.5098039215686274,
+      "roughness": 0.00022133007325847911,
+      "adherence": 0.998,
+      "valid_adherence": 0.9945
+     },
+     "50": {
+      "collision": 0.016,
+      "frac_a": 0.510670731707317,
+      "roughness": 7.838448814283376e-05,
+      "adherence": 0.9935,
+      "valid_adherence": 0.984
+     }
+    },
+    "params": 867388,
+    "final_loss": 0.01697122569195926,
+    "train_sec": 297
+   },
+   "1": {
+    "per_k": {
+     "1": {
+      "collision": 0.592,
+      "frac_a": 0.4215686274509804,
+      "roughness": 0.19337838298132642,
+      "adherence": 0.896,
+      "valid_adherence": 0.408
+     },
+     "2": {
+      "collision": 0.0005,
+      "frac_a": 0.4957478739369685,
+      "roughness": 0.0032247552303964625,
+      "adherence": 1.0,
+      "valid_adherence": 0.9995
+     },
+     "5": {
+      "collision": 0.0035,
+      "frac_a": 0.49573507275464124,
+      "roughness": 0.00035419116570348,
+      "adherence": 0.9985,
+      "valid_adherence": 0.9965
+     },
+     "10": {
+      "collision": 0.007,
+      "frac_a": 0.4959718026183283,
+      "roughness": 0.0002047648026841267,
+      "adherence": 0.997,
+      "valid_adherence": 0.993
+     },
+     "50": {
+      "collision": 0.0225,
+      "frac_a": 0.4961636828644501,
+      "roughness": 7.823006848138491e-05,
+      "adherence": 0.99,
+      "valid_adherence": 0.9775
+     }
+    },
+    "params": 867388,
+    "final_loss": 0.01663178248889744,
+    "train_sec": 290
+   }
+  }
+ },
+ "e0_imbalanced_90_10": {
+  "classes": [
+   [
+    "0"
+   ],
+   [
+    "1"
+   ]
+  ],
+  "train_probs": [
+   0.91,
+   0.09
+  ],
+  "oracle_U": {
+   "1": {
+    "collision": 0.0,
+    "frac_a": 0.0,
+    "roughness": 4.129867643646829e-05
+   },
+   "2": {
+    "collision": 0.055,
+    "frac_a": 0.005291005291005291,
+    "roughness": 5.428924302793294e-05
+   },
+   "5": {
+    "collision": 0.0015,
+    "frac_a": 0.05508262393590386,
+    "roughness": 5.9541272368965894e-05
+   },
+   "10": {
+    "collision": 0.0,
+    "frac_a": 0.074,
+    "roughness": 6.31516370317658e-05
+   },
+   "50": {
+    "collision": 0.0,
+    "frac_a": 0.086,
+    "roughness": 6.922052284601177e-05
+   }
+  },
+  "oracle_C": {
+   "1": {
+    "collision": 0.0,
+    "frac_a": 0.089,
+    "roughness": 5.7927851824074184e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   },
+   "2": {
+    "collision": 0.0,
+    "frac_a": 0.089,
+    "roughness": 5.828936043998966e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   },
+   "5": {
+    "collision": 0.0,
+    "frac_a": 0.089,
+    "roughness": 6.0875442529408655e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   },
+   "10": {
+    "collision": 0.0,
+    "frac_a": 0.089,
+    "roughness": 6.459411195494614e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   },
+   "50": {
+    "collision": 0.0,
+    "frac_a": 0.089,
+    "roughness": 7.075162333721095e-05,
+    "adherence": 1.0,
+    "valid_adherence": 1.0
+   }
+  },
+  "B0": {
+   "0": {
+    "per_k": {
+     "1": {
+      "collision": 0.803,
+      "frac_a": 0.0,
+      "roughness": 0.19044635034153326
+     },
+     "2": {
+      "collision": 0.06,
+      "frac_a": 0.027659574468085105,
+      "roughness": 0.003395938795973863
+     },
+     "5": {
+      "collision": 0.03,
+      "frac_a": 0.06288659793814433,
+      "roughness": 0.000320845928888509
+     },
+     "10": {
+      "collision": 0.016,
+      "frac_a": 0.08434959349593496,
+      "roughness": 0.000224531579431137
+     },
+     "50": {
+      "collision": 0.0125,
+      "frac_a": 0.09417721518987342,
+      "roughness": 8.415218424708902e-05
+     }
+    },
+    "params": 866364,
+    "final_loss": 0.028941952113062143,
+    "train_sec": 292
+   }
+  },
+  "B1": {
+   "0": {
+    "per_k": {
+     "1": {
+      "collision": 0.4395,
+      "frac_a": 0.0463871543264942,
+      "roughness": 0.17845434955039793,
+      "adherence": 0.982,
+      "valid_adherence": 0.5605
+     },
+     "2": {
+      "collision": 0.0,
+      "frac_a": 0.0905,
+      "roughness": 0.0034145064024524953,
+      "adherence": 1.0,
+      "valid_adherence": 1.0
+     },
+     "5": {
+      "collision": 0.0005,
+      "frac_a": 0.09054527263631816,
+      "roughness": 0.000370608908406595,
+      "adherence": 1.0,
+      "valid_adherence": 0.9995
+     },
+     "10": {
+      "collision": 0.0065,
+      "frac_a": 0.09109209864116759,
+      "roughness": 0.00019277917221289004,
+      "adherence": 1.0,
+      "valid_adherence": 0.9935
+     },
+     "50": {
+      "collision": 0.02,
+      "frac_a": 0.09183673469387756,
+      "roughness": 8.242307058445052e-05,
+      "adherence": 0.9995,
+      "valid_adherence": 0.98
+     }
+    },
+    "params": 867388,
+    "final_loss": 0.016796119814738632,
+    "train_sec": 307
+   }
+  }
+ }
+}

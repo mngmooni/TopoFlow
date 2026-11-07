@@ -1,0 +1,428 @@
+{
+ "E0_balanced": {
+  "A": {
+   "requested": 489,
+   "got": 489,
+   "tries": 523,
+   "mismatch": 0
+  },
+  "B": {
+   "requested": 511,
+   "got": 511,
+   "tries": 546,
+   "mismatch": 0
+  }
+ },
+ "E0_90_10": {
+  "A": {
+   "requested": 910,
+   "got": 910,
+   "tries": 979,
+   "mismatch": 0
+  },
+  "B": {
+   "requested": 90,
+   "got": 90,
+   "tries": 96,
+   "mismatch": 0
+  }
+ },
+ "E2_layouts": [
+  {
+   "n_obs": 1,
+   "obstacles": [
+    [
+     0.0,
+     -0.073,
+     0.251,
+     0.197,
+     0.197
+    ]
+   ],
+   "status": {
+    "A": "found",
+    "B": "found"
+   },
+   "per_class": {
+    "A": {
+     "requested": 64,
+     "got": 64,
+     "tries": 67,
+     "mismatch": 0
+    },
+    "B": {
+     "requested": 56,
+     "got": 56,
+     "tries": 58,
+     "mismatch": 0
+    }
+   },
+   "collisions_in_dataset": 0
+  },
+  {
+   "n_obs": 2,
+   "obstacles": [
+    [
+     0.0,
+     -0.182,
+     0.247,
+     0.205,
+     0.205
+    ],
+    [
+     0.0,
+     0.475,
+     0.12,
+     0.16,
+     0.16
+    ]
+   ],
+   "status": {
+    "AA": "found",
+    "AB": "found",
+    "BA": "found",
+    "BB": "found"
+   },
+   "per_class": {
+    "AA": {
+     "requested": 57,
+     "got": 57,
+     "tries": 67,
+     "mismatch": 0
+    },
+    "AB": {
+     "requested": 57,
+     "got": 57,
+     "tries": 64,
+     "mismatch": 0
+    },
+    "BA": {
+     "requested": 66,
+     "got": 66,
+     "tries": 72,
+     "mismatch": 0
+    },
+    "BB": {
+     "requested": 60,
+     "got": 60,
+     "tries": 66,
+     "mismatch": 0
+    }
+   },
+   "collisions_in_dataset": 0
+  },
+  {
+   "n_obs": 2,
+   "obstacles": [
+    [
+     1.0,
+     -0.493,
+     -0.333,
+     0.195,
+     0.171
+    ],
+    [
+     1.0,
+     -0.089,
+     0.207,
+     0.149,
+     0.226
+    ]
+   ],
+   "status": {
+    "AA": "found",
+    "AB": "found",
+    "BA": "found",
+    "BB": "found"
+   },
+   "per_class": {
+    "AA": {
+     "requested": 69,
+     "got": 69,
+     "tries": 97,
+     "mismatch": 0
+    },
+    "AB": {
+     "requested": 54,
+     "got": 54,
+     "tries": 72,
+     "mismatch": 0
+    },
+    "BA": {
+     "requested": 59,
+     "got": 59,
+     "tries": 1402,
+     "mismatch": 0
+    },
+    "BB": {
+     "requested": 58,
+     "got": 58,
+     "tries": 86,
+     "mismatch": 0
+    }
+   },
+   "collisions_in_dataset": 0
+  },
+  {
+   "n_obs": 3,
+   "obstacles": [
+    [
+     0.0,
+     -0.435,
+     0.205,
+     0.194,
+     0.194
+    ],
+    [
+     0.0,
+     0.11,
+     -0.043,
+     0.194,
+     0.194
+    ],
+    [
+     0.0,
+     0.593,
+     -0.312,
+     0.126,
+     0.126
+    ]
+   ],
+   "status": {
+    "AAA": "found",
+    "AAB": "found",
+    "ABA": "found",
+    "ABB": "found",
+    "BAA": "found",
+    "BAB": "found",
+    "BBA": "found",
+    "BBB": "found"
+   },
+   "per_class": {
+    "AAA": {
+     "requested": 55,
+     "got": 55,
+     "tries": 62,
+     "mismatch": 0
+    },
+    "AAB": {
+     "requested": 63,
+     "got": 63,
+     "tries": 72,
+     "mismatch": 0
+    },
+    "ABA": {
+     "requested": 54,
+     "got": 54,
+     "tries": 62,
+     "mismatch": 0
+    },
+    "ABB": {
+     "requested": 72,
+     "got": 72,
+     "tries": 85,
+     "mismatch": 0
+    },
+    "BAA": {
+     "requested": 67,
+     "got": 67,
+     "tries": 79,
+     "mismatch": 0
+    },
+    "BAB": {
+     "requested": 55,
+     "got": 55,
+     "tries": 61,
+     "mismatch": 0
+    },
+    "BBA": {
+     "requested": 59,
+     "got": 59,
+     "tries": 70,
+     "mismatch": 0
+    },
+    "BBB": {
+     "requested": 55,
+     "got": 55,
+     "tries": 66,
+     "mismatch": 0
+    }
+   },
+   "collisions_in_dataset": 0
+  },
+  {
+   "n_obs": 3,
+   "obstacles": [
+    [
+     0.0,
+     -0.503,
+     -0.067,
+     0.159,
+     0.159
+    ],
+    [
+     1.0,
+     0.043,
+     -0.131,
+     0.175,
+     0.171
+    ],
+    [
+     1.0,
+     0.57,
+     -0.228,
+     0.143,
+     0.128
+    ]
+   ],
+   "status": {
+    "AAA": "found",
+    "AAB": "found",
+    "ABA": "found",
+    "ABB": "found",
+    "BAA": "found",
+    "BAB": "found",
+    "BBA": "found",
+    "BBB": "found"
+   },
+   "per_class": {
+    "AAA": {
+     "requested": 59,
+     "got": 59,
+     "tries": 70,
+     "mismatch": 0
+    },
+    "AAB": {
+     "requested": 64,
+     "got": 64,
+     "tries": 79,
+     "mismatch": 0
+    },
+    "ABA": {
+     "requested": 68,
+     "got": 68,
+     "tries": 78,
+     "mismatch": 0
+    },
+    "ABB": {
+     "requested": 48,
+     "got": 48,
+     "tries": 58,
+     "mismatch": 0
+    },
+    "BAA": {
+     "requested": 63,
+     "got": 63,
+     "tries": 74,
+     "mismatch": 0
+    },
+    "BAB": {
+     "requested": 64,
+     "got": 64,
+     "tries": 80,
+     "mismatch": 0
+    },
+    "BBA": {
+     "requested": 53,
+     "got": 53,
+     "tries": 69,
+     "mismatch": 0
+    },
+    "BBB": {
+     "requested": 61,
+     "got": 61,
+     "tries": 77,
+     "mismatch": 0
+    }
+   },
+   "collisions_in_dataset": 0
+  },
+  {
+   "n_obs": 3,
+   "obstacles": [
+    [
+     0.0,
+     -0.49,
+     -0.193,
+     0.201,
+     0.201
+    ],
+    [
+     1.0,
+     0.029,
+     -0.238,
+     0.172,
+     0.21
+    ],
+    [
+     1.0,
+     0.491,
+     0.223,
+     0.145,
+     0.194
+    ]
+   ],
+   "status": {
+    "AAA": "found",
+    "AAB": "found",
+    "ABA": "found",
+    "ABB": "found",
+    "BAA": "found",
+    "BAB": "found",
+    "BBA": "found",
+    "BBB": "found"
+   },
+   "per_class": {
+    "AAA": {
+     "requested": 52,
+     "got": 52,
+     "tries": 61,
+     "mismatch": 0
+    },
+    "AAB": {
+     "requested": 67,
+     "got": 67,
+     "tries": 78,
+     "mismatch": 0
+    },
+    "ABA": {
+     "requested": 58,
+     "got": 58,
+     "tries": 78,
+     "mismatch": 0
+    },
+    "ABB": {
+     "requested": 58,
+     "got": 58,
+     "tries": 76,
+     "mismatch": 0
+    },
+    "BAA": {
+     "requested": 68,
+     "got": 68,
+     "tries": 87,
+     "mismatch": 0
+    },
+    "BAB": {
+     "requested": 61,
+     "got": 61,
+     "tries": 77,
+     "mismatch": 0
+    },
+    "BBA": {
+     "requested": 54,
+     "got": 54,
+     "tries": 79,
+     "mismatch": 0
+    },
+    "BBB": {
+     "requested": 62,
+     "got": 62,
+     "tries": 77,
+     "mismatch": 0
+    }
+   },
+   "collisions_in_dataset": 0
+  }
+ ]
+}

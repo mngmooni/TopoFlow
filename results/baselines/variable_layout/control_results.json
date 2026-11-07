@@ -1,0 +1,156 @@
+{
+ "B0_s0_extra": {
+  "K50_unseen_pos": {
+   "collision": 0.4146875,
+   "deep": 0.240625,
+   "coverage": 0.9295555555555556
+  },
+  "K20_unseen_pos_1obs": {
+   "collision": 0.26622596153846156,
+   "deep": 0.15564903846153846,
+   "coverage": 1.0
+  },
+  "K20_unseen_pos_2obs": {
+   "collision": 0.38472877358490565,
+   "deep": 0.2034198113207547,
+   "coverage": 0.9740566037735849
+  },
+  "K20_unseen_pos_3obs": {
+   "collision": 0.5327904929577465,
+   "deep": 0.3091989436619718,
+   "coverage": 0.8692488262910797
+  }
+ },
+ "B0_s1_extra": {
+  "K50_unseen_pos": {
+   "collision": 0.4867708333333333,
+   "deep": 0.2996875,
+   "coverage": 0.8921111111111111
+  },
+  "K20_unseen_pos_1obs": {
+   "collision": 0.3161057692307692,
+   "deep": 0.1875,
+   "coverage": 1.0
+  },
+  "K20_unseen_pos_2obs": {
+   "collision": 0.455188679245283,
+   "deep": 0.27446933962264153,
+   "coverage": 0.9481132075471698
+  },
+  "K20_unseen_pos_3obs": {
+   "collision": 0.6045334507042254,
+   "deep": 0.39106514084507044,
+   "coverage": 0.8017605633802818
+  }
+ },
+ "B1full_s0": {
+  "params": 877116,
+  "final_loss": 0.036540314566344025,
+  "train_sec": 294,
+  "per_k": {
+   "2": {
+    "unseen_pos": {
+     "n": 10656,
+     "adherence": 0.99878003003003,
+     "valid_adherence": 0.902027027027027,
+     "collision": 0.09797297297297297,
+     "deep": 0.00563063063063063
+    },
+    "held_out_patterns": {
+     "n": 1992,
+     "adherence": 0.9964859437751004,
+     "valid_adherence": 0.7901606425702812,
+     "collision": 0.20983935742971888,
+     "deep": 0.009036144578313253
+    }
+   },
+   "5": {
+    "unseen_pos": {
+     "n": 10656,
+     "adherence": 0.9967154654654654,
+     "valid_adherence": 0.9390015015015015,
+     "collision": 0.0609984984984985,
+     "deep": 0.002346096096096096
+    },
+    "held_out_patterns": {
+     "n": 1992,
+     "adherence": 0.9959839357429718,
+     "valid_adherence": 0.9181726907630522,
+     "collision": 0.0818273092369478,
+     "deep": 0.0015060240963855422
+    }
+   },
+   "20": {
+    "unseen_pos": {
+     "n": 10656,
+     "adherence": 0.987987987987988,
+     "valid_adherence": 0.9037162162162162,
+     "collision": 0.09628378378378379,
+     "deep": 0.006475225225225225
+    },
+    "held_out_patterns": {
+     "n": 1992,
+     "adherence": 0.9874497991967871,
+     "valid_adherence": 0.8694779116465864,
+     "collision": 0.13052208835341367,
+     "deep": 0.0050200803212851405
+    }
+   }
+  }
+ },
+ "B1full_s1": {
+  "params": 877116,
+  "final_loss": 0.03595901809632778,
+  "train_sec": 296,
+  "per_k": {
+   "2": {
+    "unseen_pos": {
+     "n": 10656,
+     "adherence": 0.99878003003003,
+     "valid_adherence": 0.9090653153153153,
+     "collision": 0.09093468468468469,
+     "deep": 0.005818318318318318
+    },
+    "held_out_patterns": {
+     "n": 1992,
+     "adherence": 0.9949799196787149,
+     "valid_adherence": 0.804718875502008,
+     "collision": 0.19528112449799198,
+     "deep": 0.012048192771084338
+    }
+   },
+   "5": {
+    "unseen_pos": {
+     "n": 10656,
+     "adherence": 0.9965277777777778,
+     "valid_adherence": 0.9468843843843844,
+     "collision": 0.05311561561561562,
+     "deep": 0.002627627627627628
+    },
+    "held_out_patterns": {
+     "n": 1992,
+     "adherence": 0.9964859437751004,
+     "valid_adherence": 0.9257028112449799,
+     "collision": 0.07429718875502007,
+     "deep": 0.0
+    }
+   },
+   "20": {
+    "unseen_pos": {
+     "n": 10656,
+     "adherence": 0.9857357357357357,
+     "valid_adherence": 0.9130067567567568,
+     "collision": 0.08699324324324324,
+     "deep": 0.006475225225225225
+    },
+    "held_out_patterns": {
+     "n": 1992,
+     "adherence": 0.9899598393574297,
+     "valid_adherence": 0.8719879518072289,
+     "collision": 0.1280120481927711,
+     "deep": 0.006526104417670682
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,20 @@
+# Python and tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+# Runtime artifacts not included in reviewed evidence
+*.pt
+*.pth
+*.pkl
+*.npz
+*.log
+nohup.out
+log.txt
+# Generated outputs are not automatically suitable for publication
+# Curated results/ and figures/ are tracked intentionally.
+
+# Generated safe-replay outputs
+reproductions/

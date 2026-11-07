@@ -1,0 +1,39 @@
+{
+ "uniform": {
+  "beta": 0.0,
+  "entropy_unseen": 1.0
+ },
+ "medium": {
+  "beta": 6.111465471691779,
+  "entropy_unseen": 0.5112258932672074
+ },
+ "concentrated": {
+  "beta": 25.154884765737677,
+  "entropy_unseen": 0.12362003707928512
+ },
+ "_stats": {
+  "train": {
+   "layouts": 2000,
+   "found_frac": 0.356296875,
+   "empty": 32,
+   "paths": 58844
+  },
+  "unseen": {
+   "layouts": 300,
+   "found_frac": 0.350625,
+   "empty": 4,
+   "paths": 8875
+  },
+  "calib": {
+   "layouts": 300,
+   "found_frac": 0.35,
+   "empty": 4,
+   "paths": 8845
+  }
+ },
+ "_margin": 0.01,
+ "_sg_y": 0.0,
+ "_packed": true,
+ "_n_train_samples": 58844,
+ "_note": "betas computed outside d1_build (crash on calib layouts with 0 found codes; those skipped)"
+}
