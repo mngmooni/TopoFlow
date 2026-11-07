@@ -389,7 +389,8 @@ The normalized coordinates are clipped before applying the inverse hyperbolic ta
 
 $$\widetilde{z}_i=\mathrm{clip}(z_i,-1+10^{-6},1-10^{-6})$$
 
-$$u_i^{\mathrm{ref}}=\operatorname{arctanh}(\widetilde{z}_i)$$
+
+$$u_i^{\mathrm{ref}}=\mathrm{arctanh}(\widetilde{z}_i)$$
 
 This clipping operation ensures finite training coordinates, including for reference paths whose resampled waypoints fall outside the representable interval.
 
