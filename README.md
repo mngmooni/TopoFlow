@@ -526,15 +526,15 @@ Because the decoded path is $x$-monotone, a below-passing route crosses the corr
 
 The prescribed crossing word is therefore the sequence of positive obstacle generators corresponding to below-passing route bits, ordered by obstacle horizontal position.
 
-Using one-based obstacle indices, this reference word is
 
-$$W_h=(j\mid h_j=1,\;j=1,\ldots,M)$$
+Let $j_1<\cdots<j_r$ denote the obstacle indices for which $h_j=1$. Consistently with Section 3.2.3, the prescribed reduced crossing word is
 
-where the notation represents an ordered word rather than an unordered set.
+$$W_h=a_{j_1}a_{j_2}\cdots a_{j_r}$$
 
-Under the valid-cut assumptions, the decoded path satisfies
+where $W_h=e$ if all route bits are zero. Under the stated valid-cut and route-family assumptions, every path decoded from the corresponding feasible chart satisfies
 
 $$W(\tau_{\mathrm{gen}})=W_h$$
+
 
 The geometric guarantee in Proposition 1 does not require these additional topological assumptions. Therefore, geometric validity remains meaningful in environments where the prescribed cut system is unsuitable for homotopy certification.
 
@@ -1002,15 +1002,17 @@ The qualitative examples complement the aggregate distributional evaluation; the
 
 Table 1 summarizes the primary class-matched fidelity measures.
 
-**Table 1.** Distributional fidelity relative to the reference planner. Ratios are generated/reference values; normalized length and obstacle-hugging entries are generated-minus-reference differences. Values are based on equal-class aggregation, with 95% layout-clustered bootstrap intervals.
+
+**Table 1.** Class-matched distributional fidelity relative to the reference planner. Values are point estimates with 95% layout-clustered bootstrap confidence intervals. Ratios are generated/reference values; normalized length and obstacle-hugging entries are generated-minus-reference differences.
 
 | Statistic | v2 D2 | v2 D3 | DiRecT-chart D2 | DiRecT-chart D3 |
-|---|---:|---:|---:|---:|
-| Normalized length gap | -0.003 | -0.001 | -0.021 | -0.019 |
-| Roughness ratio | 0.83 | 0.83 | 0.71 | 0.73 |
-| Min-clearance ratio | 0.93 | 0.94 | 1.01 | 1.01 |
-| Obstacle-hugging gap | +0.100 | +0.088 | +0.064 | +0.065 |
-| Within-class diversity ratio | 0.95 | 0.95 | 0.83 | 0.82 |
+|---|---|---|---|---|
+| Normalized length gap | -0.003 [-0.005, -0.002] | -0.001 [-0.002, 0.000] | -0.021 [-0.022, -0.019] | -0.019 [-0.020, -0.018] |
+| Roughness ratio | 0.83 [0.80, 0.85] | 0.83 [0.81, 0.86] | 0.71 [0.70, 0.73] | 0.73 [0.72, 0.75] |
+| Min-clearance ratio | 0.93 [0.92, 0.94] | 0.94 [0.93, 0.95] | 1.01 [1.00, 1.02] | 1.01 [1.00, 1.02] |
+| Obstacle-hugging gap | +0.100 [0.085, 0.115] | +0.088 [0.075, 0.100] | +0.064 [0.053, 0.074] | +0.065 [0.055, 0.074] |
+| Within-class diversity ratio | 0.95 [0.94, 0.96] | 0.95 [0.94, 0.95] | 0.83 [0.83, 0.84] | 0.82 [0.82, 0.83] |
+
 
 For normalized length, v2 differed from the reference by -0.003 on D2 and -0.001 on D3, substantially smaller in magnitude than the corresponding differences for P1 + DiRecT-chart.
 
